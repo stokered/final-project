@@ -1,9 +1,17 @@
+/* === Base === */
 body {
   font-family: sans-serif;
   margin: 0;
   background: #fdf9f3;
+  color: #333;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* === Sticky Header === */
 .sticky-header {
   position: sticky;
   top: 0;
@@ -17,9 +25,16 @@ body {
   z-index: 1000;
 }
 
+#genre-filter,
+#search {
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+/* === Post Grid === */
 #posts-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1em;
   padding: 2em;
 }
@@ -28,8 +43,8 @@ body {
   background: white;
   border: 1px solid #ddd;
   padding: 0.5em;
-  transition: transform 0.2s ease;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .post-card:hover {
@@ -47,28 +62,79 @@ body {
   margin-top: 0.5em;
 }
 
+/* === Popup === */
 #popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.7);
-  display: none;
-  align-items: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
   justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-#popup.visible {
-  display: flex;
+#popup.hidden {
+  display: none;
 }
 
 .popup-content {
   background: white;
-  padding: 2em;
-  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
   max-height: 90%;
   overflow-y: auto;
-  border-radius: 8px;
-  position: relative;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+}
+
+.comment {
+  background: #f0f0f0;
+  padding: 0.75em;
+  border-radius: 6px;
+  margin-bottom: 1em;
+}
+
+/* === Form === */
+#comment-form {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+#comment-form input,
+#comment-form textarea {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 100%;
+}
+
+#comment-form button {
+  background-color: #ff7f50;
+  border: none;
+  color: white;
+  padding: 0.75em;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#comment-form button:hover {
+  background-color: #ff5a24;
+}
+
+#add-post {
+  padding: 0.5em 1em;
+  background: #222;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
 }

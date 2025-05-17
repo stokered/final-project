@@ -20,4 +20,9 @@ router.get("/", async function (req, res) {
   }
 });
 
+router.get("/submit", (req, res) => {
+  res.render("submit", { title: "Dump a Movie" });
+});
+
+
 module.exports = router;
