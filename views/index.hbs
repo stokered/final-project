@@ -1,19 +1,57 @@
-<h1>{{title}}</h1>
-<p>Welcome to the trash heap of cinema history 🎬🗑️</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
 
-{{#if posts.length}}
-  <div class="posts">
-    {{#each posts}}
-      <div class="post-card">
-        <h2>{{this.title}}</h2>
-        <p><strong>Rating:</strong> {{this.rating}} 🍅</p>
-        <p><strong>Genre:</strong> {{this.genre}}</p>
-        <p><em>{{this.review}}</em></p>
-        <p><strong>Submitted by:</strong> {{#if this.anonymous}}Anonymous{{else}}{{this.name}}{{/if}}</p>
-        <hr>
+    <div class="sticky-header">
+      <div class="logo">🍅 LOGO HERE</div>
+      <input type="text" id="search" placeholder="Search...">
+      <select id="genre-filter">
+        <option value="">All Genres</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+        <option value="Horror">Horror</option>
+        <option value="Musical">Musical</option>
+        <!-- add more as needed -->
+      </select>
+      <button id="add-post">ADD NEW</button>
+    </div>
+
+    <div id="posts-grid">
+      {{#each posts}}
+        <div class="post-card" data-id="{{this._id}}">
+          <img src="{{this.posterUrl}}" alt="{{this.title}}" class="poster" />
+          <div class="rating">{{this.rating}} 🍅</div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div id="popup" class="hidden">
+      <div class="popup-content">
+        <button id="close-popup">X</button>
+        <h2 id="popup-title"></h2>
+        <p id="popup-review"></p>
+        <p id="popup-name"></p>
+
+        <form id="comment-form">
+          <input type="text" name="commenter" placeholder="Your name">
+          <label>
+            <input type="checkbox" name="anonymous"> Post anonymously
+          </label>
+          <textarea name="comment" placeholder="Leave a comment..."></textarea>
+          <button type="submit">Submit Comment</button>
+        </form>
+
+        <div id="comments-section">
+          <!-- loaded dynamically -->
+        </div>
       </div>
-    {{/each}}
-  </div>
-{{else}}
-  <p>No bad movies have been added yet 😇</p>
-{{/if}}
+    </div>
+
+    <script src="/javascripts/scripts.js"></script>
+  </body>
+</html>
