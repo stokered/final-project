@@ -1,2 +1,19 @@
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<p>Welcome to the trash heap of cinema history 🎬🗑️</p>
+
+{{#if posts.length}}
+  <div class="posts">
+    {{#each posts}}
+      <div class="post-card">
+        <h2>{{this.title}}</h2>
+        <p><strong>Rating:</strong> {{this.rating}} 🍅</p>
+        <p><strong>Genre:</strong> {{this.genre}}</p>
+        <p><em>{{this.review}}</em></p>
+        <p><strong>Submitted by:</strong> {{#if this.anonymous}}Anonymous{{else}}{{this.name}}{{/if}}</p>
+        <hr>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <p>No bad movies have been added yet 😇</p>
+{{/if}}
