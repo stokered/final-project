@@ -1,3 +1,5 @@
+// script for seed data!! 
+
 const { MongoClient } = require("mongodb");
 
 const uri =
@@ -11,7 +13,7 @@ async function seed() {
     const db = client.db("final-project");
     const posts = db.collection("posts");
 
-    const sharedPoster = "/images/paris.jpg"
+    const sharedPoster = "/images/noposter.png";
 
     const sampleMovies = [
       {

@@ -4,7 +4,7 @@ const { getDb } = require("../config/db");
 
 const router = express.Router();
 
-// GET /comments/:entryId — Get all comments for a specific entry
+// GET /comments/:entryId — get all comments for a specific entry
 router.get("/:entryId", async (req, res) => {
   try {
     const db = getDb();
@@ -23,7 +23,7 @@ router.get("/:entryId", async (req, res) => {
   }
 });
 
-// POST /comments — Add a new comment
+// POST /comments — add a new comment
 router.post("/", async (req, res) => {
   try {
     const { entryId, comment, commenter, anonymous } = req.body;

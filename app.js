@@ -6,10 +6,10 @@ const createError = require("http-errors");
 
 const { connectToDatabase } = require("./config/db");
 const indexRouter = require("./routes/index");
-const entriesRouter = require("./routes/entries");
-const commentsRouter = require("./routes/comments"); // MAKE SURE THIS IS AFTER express()
+const postsRouter = require("./routes/posts");
+const commentsRouter = require("./routes/comments"); 
 
-const app = express(); // THIS MUST COME BEFORE app.use()
+const app = express(); 
 
 connectToDatabase().then(() => {
   console.log("DB ready – Express app booting up...");
@@ -25,8 +25,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/entries", entriesRouter); // Add entries route
-app.use("/comments", commentsRouter); // Add comments route
+app.use("/entries", postsRouter); // posts route
+app.use("/comments", commentsRouter); // comments route
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

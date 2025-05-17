@@ -7,43 +7,50 @@
   </head>
   <body>
 
+    <!-- === header === -->
     <div class="sticky-header">
+      <!-- add animation...the bad reel? ===-->
       <div class="logo">🍅 LOGO HERE</div>
-      <input type="text" id="search" placeholder="Search...">
-      <select id="genre-filter" name="genre" required>
-          <option value="">All Genres</option>
-          <option value="Action">Action</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Animation">Animation</option>
-          <option value="Comedy">Comedy</option>
-          <option value="Crime">Crime</option>
-          <option value="Documentary">Documentary</option>
-          <option value="Drama">Drama</option>
-          <option value="Family">Family</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="History">History</option>
-          <option value="Horror">Horror</option>
-          <option value="Musical">Musical</option>
-          <option value="Mystery">Mystery</option>
-          <option value="Romance">Romance</option>
-          <option value="Sci-Fi">Sci-Fi</option>
-          <option value="Thriller">Thriller</option>
-          <option value="War">War</option>
-          <option value="Western">Western</option>
-        </select>
 
-      <a href="/submit" id="add-post">ADD NEW</a>
+      <input type="text" id="search" placeholder="Search...">
+
+      <select id="genre-filter" name="genre">
+        <option value="">All Genres</option>
+        <option>Action</option>
+        <option>Adventure</option>
+        <option>Animation</option>
+        <option>Comedy</option>
+        <option>Crime</option>
+        <option>Documentary</option>
+        <option>Drama</option>
+        <option>Family</option>
+        <option>Fantasy</option>
+        <option>History</option>
+        <option>Horror</option>
+        <option>Musical</option>
+        <option>Mystery</option>
+        <option>Romance</option>
+        <option>Sci-Fi</option>
+        <option>Thriller</option>
+        <option>War</option>
+        <option>Western</option>
+      </select>
+
+      <button id="add-post">ADD NEW</button>
     </div>
 
+    <!-- === post grid === -->
     <div id="posts-grid">
       {{#each posts}}
         <div class="post-card" data-id="{{this._id}}">
           <img src="{{this.posterUrl}}" alt="{{this.title}}" class="poster" />
+          <div class="title">{{this.title}}</div>
           <div class="rating">{{this.rating}} 🍅</div>
         </div>
       {{/each}}
     </div>
 
+    <!-- === popup view === -->
     <div id="popup" class="hidden">
       <div class="popup-content">
         <button id="close-popup">X</button>
@@ -61,13 +68,59 @@
         </form>
 
         <div id="comments-section">
-          <!-- loaded dynamically -->
+          <!-- dynamically loaded -->
         </div>
       </div>
     </div>
 
-    
+    <!-- === submit form modal popup === -->
+    <div id="submit-popup" class="hidden">
+      <div class="popup-content">
+        <button id="close-submit-popup">X</button>
+        <form id="submit-form">
+          <label for="movie-search">Add a movie:</label>
+          <input type="text" id="movie-search" placeholder="Search..." autocomplete="off" />
+          <ul id="movie-suggestions" class="hidden"></ul>
 
+          <button type="button" id="toggle-manual">Add Manually</button>
+
+          <div id="manual-fields" class="hidden">
+            <label>Movie Title:
+              <input type="text" name="title" id="movie-title" />
+            </label><br>
+
+            <label>Genre:
+              <input type="text" name="genre" id="movie-genre" />
+            </label><br>
+
+            <label>Year:
+              <input type="text" name="year" id="movie-year" />
+            </label><br>
+          </div>
+
+          <label>Rating (1–5):
+            <input type="number" name="rating" min="1" max="5" required />
+          </label><br>
+
+          <label>Your Name:
+            <input type="text" name="name" />
+          </label>
+          <label><input type="checkbox" name="isAnonymous"> Post anonymously</label><br>
+
+          <label>Review:<br>
+            <textarea name="review" rows="5" required></textarea>
+          </label><br>
+
+          <input type="hidden" name="posterUrl" id="poster-url" value="/images/noposter.png" />
+          <button type="submit">🚽 Flush It</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- === toast notification === -->
+    <div id="toast" class="hidden">🍿</div>
+
+    <!-- === scripts === -->
     <script src="/javascripts/scripts.js"></script>
   </body>
 </html>

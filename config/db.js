@@ -16,7 +16,7 @@ let db = null;
 async function connectToDatabase() {
   try {
     await client.connect();
-    db = client.db("final-project"); 
+    db = client.db("final-project");
     console.log("MongoDB connected to 'final-project'!");
   } catch (err) {
     console.error("MongoDB connection error:", err);
