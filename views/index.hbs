@@ -3,124 +3,175 @@
   <head>
     <meta charset="UTF-8" />
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="icon" href="/images/favicon.png" type="image/png">
   </head>
   <body>
 
-    <!-- === header === -->
+
+
+
+
+    <!-- === SIDEBAR === -->
     <div class="sticky-header">
-      <!-- add animation...the bad reel? ===-->
-      <div class="logo">🍅 LOGO HERE</div>
+      <div class="sidebar-top">
+        <div class="sidebar-section logo">
+          <img src="/images/logo.png" width="100%" alt="Logo" />
+        </div>
 
-      <input type="text" id="search" placeholder="Search...">
+        <div class="sidebar-section search">
+          <input type="text" id="search" placeholder="Search..." />
+        </div>
 
-      <select id="genre-filter" name="genre">
-        <option value="">All Genres</option>
-        <option>Action</option>
-        <option>Adventure</option>
-        <option>Animation</option>
-        <option>Comedy</option>
-        <option>Crime</option>
-        <option>Documentary</option>
-        <option>Drama</option>
-        <option>Family</option>
-        <option>Fantasy</option>
-        <option>History</option>
-        <option>Horror</option>
-        <option>Musical</option>
-        <option>Mystery</option>
-        <option>Romance</option>
-        <option>Sci-Fi</option>
-        <option>Thriller</option>
-        <option>War</option>
-        <option>Western</option>
-      </select>
+        <div class="sidebar-section filters">
+          <label for="genre-filter">Filter by Genre:</label>
+          <select id="genre-filter" name="genre">
+            <option value="">All Genres</option>
+            <option>Action</option><option>Adventure</option><option>Animation</option>
+            <option>Comedy</option><option>Crime</option><option>Documentary</option>
+            <option>Drama</option><option>Family</option><option>Fantasy</option>
+            <option>History</option><option>Horror</option><option>Musical</option>
+            <option>Mystery</option><option>Romance</option><option>Sci-Fi</option>
+            <option>Thriller</option><option>War</option><option>Western</option>
+          </select>
+        </div>
+      </div>
 
-      <button id="add-post">ADD NEW</button>
+      <div class="sidebar-bottom">
+        <div class="sidebar-section note">
+          <p>Do your worst.</p>
+          <button id="add-post">Wreck a Reel</button>
+        </div>
+      </div>
     </div>
 
-    <!-- === post grid === -->
+
+
+
+
+
+    <!-- === POSTS GRID === -->
     <div id="posts-grid">
       {{#each posts}}
-        <div class="post-card" data-id="{{this._id}}">
+        <div class="post-card"
+             data-id="{{this._id}}"
+             data-title="{{this.title}}"
+             data-review="{{this.review}}"
+             data-name="{{this.name}}"
+             data-year="{{this.year}}"
+             data-genre="{{this.genre}}"
+             data-poster="{{this.posterUrl}}"
+             data-rating="{{this.rating}}">
           <img src="{{this.posterUrl}}" alt="{{this.title}}" class="poster" />
           <div class="title">{{this.title}}</div>
-          <div class="rating">{{this.rating}} 🍅</div>
+          <div class="rating-thumbs" data-rating="{{this.rating}}"></div>
         </div>
       {{/each}}
     </div>
 
-    <!-- === popup view === -->
+
+
+
+
+
+    <!-- === POST DETAIL POPUP === -->
     <div id="popup" class="hidden">
-      <div class="popup-content">
+      <div class="popup-content review-popup">
         <button id="close-popup">X</button>
-        <h2 id="popup-title"></h2>
-        <p id="popup-review"></p>
-        <p id="popup-name"></p>
-
-        <form id="comment-form">
-          <input type="text" name="commenter" placeholder="Your name">
-          <label>
-            <input type="checkbox" name="anonymous"> Post anonymously
-          </label>
-          <textarea name="comment" placeholder="Leave a comment..."></textarea>
-          <button type="submit">Submit Comment</button>
-        </form>
-
-        <div id="comments-section">
-          <!-- dynamically loaded -->
+        <div class="popup-main">
+          <div class="popup-left">
+            <h2 id="popup-title">Movie Title</h2>
+            <p id="popup-year">(Year)</p>
+            <p id="popup-genre">Genre</p>
+            <div id="popup-rating" class="rating-thumbs"></div>
+            <p id="popup-review">Review text here</p>
+            <p id="popup-name">Submitted by: Anonymous</p>
+          </div>
+          <div class="popup-right">
+            <img id="popup-poster" src="/images/noposter.png" alt="Poster" />
+          </div>
+        </div>
+        <hr />
+        <div class="comments-area">
+          <h3>Comments</h3>
+          <form id="comment-form">
+            <input type="text" name="commenter" placeholder="Your name" />
+            <label><input type="checkbox" name="anonymous" /> Post anonymously</label>
+            <textarea name="comment" placeholder="Leave a comment..."></textarea>
+            <button type="submit">Submit Comment</button>
+          </form>
+          <div id="comments-section"></div>
         </div>
       </div>
     </div>
 
-    <!-- === submit form modal popup === -->
+
+
+
+
+    <!-- === SUBMIT FORM POPUP === -->
     <div id="submit-popup" class="hidden">
       <div class="popup-content">
         <button id="close-submit-popup">X</button>
         <form id="submit-form">
-          <label for="movie-search">Add a movie:</label>
-          <input type="text" id="movie-search" placeholder="Search..." autocomplete="off" />
-          <ul id="movie-suggestions" class="hidden"></ul>
-
-          <button type="button" id="toggle-manual">Add Manually</button>
-
-          <div id="manual-fields" class="hidden">
-            <label>Movie Title:
-              <input type="text" name="title" id="movie-title" />
-            </label><br>
-
-            <label>Genre:
-              <input type="text" name="genre" id="movie-genre" />
-            </label><br>
-
-            <label>Year:
-              <input type="text" name="year" id="movie-year" />
-            </label><br>
+          <div class="search-group">
+            <label for="movie-search">Search Movie:</label>
+            <input type="text" id="movie-search" placeholder="Start typing..." autocomplete="off" />
+            <ul id="movie-suggestions" class="hidden"></ul>
+            <button type="button" id="toggle-manual">Add Manually</button>
           </div>
 
-          <label>Rating (1–5):
-            <input type="number" name="rating" min="1" max="5" required />
-          </label><br>
+          <div class="poster-and-details">
+            <img id="poster-preview" src="/images/noposter.png" alt="Poster preview" class="poster-preview" />
 
-          <label>Your Name:
-            <input type="text" name="name" />
-          </label>
-          <label><input type="checkbox" name="isAnonymous"> Post anonymously</label><br>
+            <div id="manual-fields" class="manual-fields collapse">
+              <label>Movie Title:
+                <input type="text" name="title" id="movie-title" />
+              </label>
+              <label>Genre:
+                <input type="text" name="genre" id="movie-genre" />
+              </label>
+              <label>Year:
+                <input type="text" name="year" id="movie-year" />
+              </label>
+            </div>
+          </div>
 
-          <label>Review:<br>
-            <textarea name="review" rows="5" required></textarea>
-          </label><br>
+          <div class="name-anon">
+            <label>Your Name:
+              <input type="text" name="name" />
+            </label>
+            <label><input type="checkbox" name="isAnonymous" /> Post anonymously</label>
+          </div>
+
+          <div class="thumb-rating" id="thumb-rating">
+            <input type="hidden" name="rating" id="rating-value" value="0" />
+            <img src="/images/thumbsdown.png" data-value="1" class="thumb" />
+            <img src="/images/thumbsdown.png" data-value="2" class="thumb" />
+            <img src="/images/thumbsdown.png" data-value="3" class="thumb" />
+            <img src="/images/thumbsdown.png" data-value="4" class="thumb" />
+            <img src="/images/thumbsdown.png" data-value="5" class="thumb" />
+          </div>
+
+          <div class="review-section">
+            <label>Review:
+              <textarea name="review" required></textarea>
+            </label>
+          </div>
 
           <input type="hidden" name="posterUrl" id="poster-url" value="/images/noposter.png" />
-          <button type="submit">🚽 Flush It</button>
+          <button type="submit">Post Review</button>
         </form>
       </div>
     </div>
 
-    <!-- === toast notification === -->
+
+
+    
+
+    <!-- === TOAST === -->
     <div id="toast" class="hidden">🍿</div>
 
-    <!-- === scripts === -->
     <script src="/javascripts/scripts.js"></script>
   </body>
 </html>

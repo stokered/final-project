@@ -5,10 +5,10 @@ const { getDb } = require("../config/db");
 router.get("/", async function (req, res) {
   try {
     const db = getDb();
-    const posts = await db.collection("posts").find().toArray();
+    const posts = await db.collection("posts").find().sort({ _id: -1 }).toArray();
 
     res.render("index", {
-      title: "🍅 Public Archive of Bad Movies",
+      title: "The Bad Reel",
       posts,
     });
   } catch (err) {

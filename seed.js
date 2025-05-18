@@ -1,4 +1,5 @@
 // script for seed data!! 
+// deleted it but ill keep the script just bc maybe it could be helpful in the future
 
 const { MongoClient } = require("mongodb");
 

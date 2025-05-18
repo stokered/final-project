@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 // POST /entries — add a new post
 router.post("/", async (req, res) => {
   try {
-    const { title, rating, genre, review, name, isAnonymous, posterUrl } =
+    const { title, rating, genre, year, review, name, isAnonymous, posterUrl } =
       req.body;
 
     if (!title || !rating) {
@@ -36,6 +36,7 @@ router.post("/", async (req, res) => {
       title,
       rating,
       genre: genre || "",
+      year: year || "Unknown",
       review: review || "",
       name: isAnonymous ? "Anonymous" : name || "Anonymous",
       posterUrl: posterUrl || "/images/noposter.png",
@@ -44,6 +45,7 @@ router.post("/", async (req, res) => {
 
     const db = getDb();
     const result = await db.collection("posts").insertOne(newPost);
+
     res.status(201).json({ _id: result.insertedId, ...newPost });
   } catch (err) {
     console.error("POST /entries error:", err);
