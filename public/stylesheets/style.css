@@ -11,10 +11,10 @@
   box-sizing: border-box;
 }
 
-body {
+body, .popup-content {
   margin: 0;
   font-family: "Syne Mono", monospace;
-  background-color: var(--parchment);
+  background: var(--parchment) url("https://www.transparenttextures.com/patterns/paper-fibers.png") repeat;
   color: var(--darkgrey);
   line-height: 1.5;
 }
@@ -102,8 +102,6 @@ button:hover {
 }
 
 .post-card {
-  background: var(--vanilla);
-  border: 2px solid var(--darkgrey);
   border-radius: 8px;
   padding: 0.5em;
   transition: transform 0.25s ease, box-shadow 0.2s ease;
@@ -126,6 +124,10 @@ button:hover {
   margin-top: 0.5em;
   text-align: center;
   font-size: 1.1em;
+}
+
+h2 {
+  font-family: "Rubik Doodle Shadow", system-ui;
 }
 
 
@@ -186,6 +188,37 @@ button:hover {
   flex-direction: column;
   gap: 1.2em;
 }
+
+#submit-form {
+  padding: 1.5em;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 var(--scarlet);
+}
+
+#submit-form label {
+/* ==== STILL NOT SHOWING UP---COME BACK TO LATER ========================*/
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: var(--darkgrey);
+}
+
+#submit-form input[type="text"],
+#submit-form textarea {
+  background-color: var(--parchment);
+  border: 2px solid var(--scarlet);
+  padding: 0.6em;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.submit-divider {
+  height: 2px;
+  background-color: var(--darkgrey);
+  opacity: 0.2;
+  margin: 1.5em 0;
+}
+
 
 .search-group input,
 .search-group button {
@@ -432,9 +465,7 @@ button:hover {
   }
 }
 
-
-
-/* === HATER LABELS <33 === */
+/* === REVIEW HATER LABEL === */
 #popup-review::before {
   content: "I hate it because:";
   display: block;
@@ -445,21 +476,17 @@ button:hover {
 
 
 
-
-/* === DIVIDERs === */
+/* === DIVIDER === */
 .popup-divider {
   height: 2px;
-  background: var(--darkgrey); 
+  background: var(--darkgrey);
   margin: 1.5em 0;
   opacity: 0.3;
 }
 
 
 
-
-/*=== x button ???? there is clickout logic but idk if people will know that and
-i feel like its weird to put up something that just says "click off the page
-when you need!!:))" so i guess ill keep both === */
+/* === X OUT BUTTON (((add something that shows i have clickout logic??? idk or keep))) === */
 #close-popup,
 #close-submit-popup {
   position: absolute;
@@ -473,19 +500,42 @@ when you need!!:))" so i guess ill keep both === */
   cursor: pointer;
 }
 
-
-
-
-
-
-/* bigger thumbs */
 #popup-rating img {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
 }
 
-body,
-.popup-content {
-  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-  background-repeat: repeat;
+#popup-rating img:hover {
+  transform: scale(1.2) rotate(-5deg);
+}
+
+
+.post-label {
+  font-weight: bold;
+  color: var(--scarlet);
+}
+
+#comment-form input[type="text"],
+#comment-form textarea {
+  border: 2px solid var(--scarlet);
+  background-color: var(--parchment);
+  padding: 0.5em;
+  border-radius: 6px;
+  margin-bottom: 1em;
+}
+
+#comment-form input[type="checkbox"] {
+  accent-color: var(--scarlet);
+  margin-right: 0.5em;
+}
+
+
+
+
+/* ====== FONT =======*/ 
+.rubik-doodle-shadow-regular {
+  font-family: "Rubik Doodle Shadow", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }

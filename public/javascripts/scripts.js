@@ -225,7 +225,7 @@ toggleManualBtn?.addEventListener("click", () => {
       document.getElementById("popup-review").textContent = card.dataset.review;
       document.getElementById(
         "popup-name"
-      ).textContent = `🗣️ ${card.dataset.name}`;
+      ).innerHTML = `<span class="post-label">Posted by:</span> ${card.dataset.name}`;
       document.getElementById("popup-poster").src = card.dataset.poster;
       renderThumbs(
         document.getElementById("popup-rating"),
