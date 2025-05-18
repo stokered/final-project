@@ -21,6 +21,7 @@ toggleManualBtn?.addEventListener("click", () => {
   manualFields.classList.toggle("show", !isVisible);
   manualFields.classList.toggle("hidden", isVisible); // hide only if visible
 
+  // === COME BACK TO THIS::: manual entry toggled onto "hide fields" ???? 
   toggleManualBtn.textContent = isVisible
     ? "Add Manually"
     : "Hide Manual Fields";
@@ -143,6 +144,18 @@ toggleManualBtn?.addEventListener("click", () => {
 
   document.getElementById("close-popup")?.addEventListener("click", () => {
     popup.classList.add("hidden");
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      popup.classList.add("hidden");
+      submitPopup.classList.add("hidden");
+    }
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === popup) popup.classList.add("hidden");
+    if (e.target === submitPopup) submitPopup.classList.add("hidden");
   });
 
 
@@ -277,7 +290,7 @@ toggleManualBtn?.addEventListener("click", () => {
 
 
 
-  
+
 
   // === TOAST ===
   function showToast(message) {

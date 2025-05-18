@@ -8,21 +8,15 @@
   </head>
   <body>
 
-
-
-
-
     <!-- === SIDEBAR === -->
     <div class="sticky-header">
       <div class="sidebar-top">
         <div class="sidebar-section logo">
           <img src="/images/logo.png" width="100%" alt="Logo" />
         </div>
-
         <div class="sidebar-section search">
           <input type="text" id="search" placeholder="Search..." />
         </div>
-
         <div class="sidebar-section filters">
           <label for="genre-filter">Filter by Genre:</label>
           <select id="genre-filter" name="genre">
@@ -36,7 +30,6 @@
           </select>
         </div>
       </div>
-
       <div class="sidebar-bottom">
         <div class="sidebar-section note">
           <p>Do your worst.</p>
@@ -44,11 +37,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
 
     <!-- === POSTS GRID === -->
     <div id="posts-grid">
@@ -69,11 +57,6 @@
       {{/each}}
     </div>
 
-
-
-
-
-
     <!-- === POST DETAIL POPUP === -->
     <div id="popup" class="hidden">
       <div class="popup-content review-popup">
@@ -91,7 +74,7 @@
             <img id="popup-poster" src="/images/noposter.png" alt="Poster" />
           </div>
         </div>
-        <hr />
+        <div class="popup-divider"></div>
         <div class="comments-area">
           <h3>Comments</h3>
           <form id="comment-form">
@@ -105,10 +88,6 @@
       </div>
     </div>
 
-
-
-
-
     <!-- === SUBMIT FORM POPUP === -->
     <div id="submit-popup" class="hidden">
       <div class="popup-content">
@@ -120,10 +99,8 @@
             <ul id="movie-suggestions" class="hidden"></ul>
             <button type="button" id="toggle-manual">Add Manually</button>
           </div>
-
           <div class="poster-and-details">
             <img id="poster-preview" src="/images/noposter.png" alt="Poster preview" class="poster-preview" />
-
             <div id="manual-fields" class="manual-fields collapse">
               <label>Movie Title:
                 <input type="text" name="title" id="movie-title" />
@@ -136,14 +113,12 @@
               </label>
             </div>
           </div>
-
           <div class="name-anon">
             <label>Your Name:
               <input type="text" name="name" />
             </label>
             <label><input type="checkbox" name="isAnonymous" /> Post anonymously</label>
           </div>
-
           <div class="thumb-rating" id="thumb-rating">
             <input type="hidden" name="rating" id="rating-value" value="0" />
             <img src="/images/thumbsdown.png" data-value="1" class="thumb" />
@@ -152,26 +127,19 @@
             <img src="/images/thumbsdown.png" data-value="4" class="thumb" />
             <img src="/images/thumbsdown.png" data-value="5" class="thumb" />
           </div>
-
           <div class="review-section">
             <label>Review:
               <textarea name="review" required></textarea>
             </label>
           </div>
-
           <input type="hidden" name="posterUrl" id="poster-url" value="/images/noposter.png" />
           <button type="submit">Post Review</button>
         </form>
       </div>
     </div>
 
-
-
-    
-
     <!-- === TOAST === -->
     <div id="toast" class="hidden">🍿</div>
-
     <script src="/javascripts/scripts.js"></script>
   </body>
 </html>
