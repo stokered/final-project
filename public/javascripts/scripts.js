@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileMenu = document.getElementById("mobile-menu");
   const closeBtn = document.getElementById("close-mobile-menu");
 
-  // ✅ NEW: Use class-based filter selectors
   const genreFilters = document.querySelectorAll(".genre-filter");
   const sortFilters = document.querySelectorAll(".sort-filter");
 
@@ -104,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileMenu.classList.remove("show");
   });
 
-  // === INIT FROM DOM ===
   const initialPostEls = document.querySelectorAll(".post-card");
   initialPostEls.forEach((el) => {
     const post = {
@@ -120,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     allPosts.push(post);
   });
 
-  // ✅ UPDATED: Event listeners for all filters
   genreFilters.forEach((filter) =>
     filter.addEventListener("change", () => renderPosts(allPosts))
   );
@@ -128,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
     filter.addEventListener("change", () => renderPosts(allPosts))
   );
 
-  // ✅ UPDATED: renderPosts with visible filter detection
   function renderPosts(posts) {
     const grid = document.getElementById("posts-grid");
     grid.innerHTML = "";
@@ -191,9 +187,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Rendered", filtered.length, "posts");
   }
 
-  renderPosts(allPosts); // Initial call
+  renderPosts(allPosts);
 
-  // === RATING LOGIC ===
   const thumbs = document.querySelectorAll("#thumb-rating .thumb");
   const ratingInput = document.getElementById("rating-value");
   let selectedRating = 0;
@@ -229,9 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function bindCardClick(card) {
     card.addEventListener("click", () => {
       document.getElementById("popup-title").textContent = card.dataset.title;
-      document.getElementById(
-        "popup-year"
-      ).textContent = `(${card.dataset.year})`;
+      document.getElementById("popup-year").textContent = card.dataset.year;
       document.getElementById("popup-genre").textContent = card.dataset.genre;
       document.getElementById("popup-review").textContent = card.dataset.review;
       document.getElementById(

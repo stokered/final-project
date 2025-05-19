@@ -80,8 +80,8 @@ input, select, textarea {
   color: var(--vanilla);
   cursor: pointer;
   display: inline-block;
-  font-family: "Syne Mono", monospace;
-  font-size: 1rem;
+  font-family: "Barriecito", system-ui;
+  font-size: 30px;
   line-height: 23px;
   outline: none;
   padding: .75rem;
@@ -99,7 +99,8 @@ input, select, textarea {
 .sticky-header button:hover {
   box-shadow: var(--scarlet) 2px 8px 8px -5px;
   transform: translate3d(0, 2px, 0);
-  font-family: "Syne Mono", monospace;
+  font-family: "Barriecito", system-ui;
+  font-size: 30px;
   border-color: var(--tangerine);
   background-color: var(--vanilla);
   color: var(--tangerine);
@@ -322,8 +323,8 @@ button[type="submit"] {
   color: var(--parchment);
   cursor: pointer;
   display: inline-block;
-  font-family: "Syne Mono", monospace;
-  font-size: 1rem;
+  font-family: "Barriecito", system-ui;
+  font-size: 30px;
   line-height: 23px;
   outline: none;
   padding: .75rem;
@@ -341,7 +342,26 @@ button[type="submit"] {
 button[type="submit"]:hover {
   box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
   transform: translate3d(0, 2px, 0);
+  font-family: "Barriecito", system-ui;
+  font-size: 32px;
+}
+
+#toggle-manual {
+  background-color: var(--tangerine);
+  color: var(--vanilla);
+  border: none;
+  font-size: 15px;
   font-family: "Syne Mono", monospace;
+}
+
+#toggle-manual:hover {
+  background-color: var(--darkgrey);
+  color: var(--vanilla);
+  border: none;
+  font-size: 16px;
+  font-family: "Syne Mono", monospace;
+  cursor: pointer;
+  transform: translate3d(0, 1px, 0);
 }
 
 .add-post {
@@ -579,12 +599,12 @@ button[type="submit"]:hover {
   font-weight: bold;
   border: none;
   cursor: pointer;
-  float: left;
 }
 
 #close-popup:hover {
   cursor: pointer;
   color: var(--darkgrey);
+  transform: translate3d(0, 1px, 0);
 }
 
 #close-submit-popup:hover {
@@ -627,8 +647,10 @@ button[type="submit"]:hover {
 
 
 /* === FONT === */
-.rubik-doodle-shadow-regular {
-  font-family: "Rubik Doodle Shadow", system-ui;
+.barriecito-regular {
+  font-family: "Barriecito", system-ui;
   font-weight: 400;
   font-style: normal;
 }
+
+
