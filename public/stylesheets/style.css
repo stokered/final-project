@@ -1,3 +1,8 @@
+/* ==== i know my css is insanely long but i went too deep
+.... now any time i change one little thing i swear it changes everything
+and im going crazy. i know there are some orphaned styles here 
+but my brain is hurting ===============*/
+
 /* === VARIABLES === */
 :root {
   --darkgrey: #1C2025;
@@ -18,6 +23,7 @@ body {
   background: var(--parchment) url("https://www.transparenttextures.com/patterns/asfalt-dark.png") repeat;
   color: var(--darkgrey);
   line-height: 1.5;
+  overflow-y: auto; /* CHANGE 2 --- OVERFLOW  */
 }
 
 .hidden {
@@ -35,6 +41,7 @@ input, select, textarea {
 
 
 /* === STICKY SIDEBAR === */
+/* === STICKY SIDEBAR === */
 .sticky-header {
   position: fixed;
   top: 0;
@@ -43,18 +50,23 @@ input, select, textarea {
   height: 100vh;
   background: var(--darkgrey);
   color: var(--parchment);
-  padding: 1.5em 1em;
+  padding: 0.5em 1em;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  overflow-y: hidden;
   z-index: 1000;
-  overflow-y: auto;
 }
 
-.sidebar-top, .sidebar-bottom {
+.sidebar-top {
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 1em;
+  margin-top: 0.5em;
+  flex-grow: 1;
+}
+
+.sidebar-bottom {
+  margin-bottom: 1em;
 }
 
 .sticky-header input,
@@ -65,7 +77,6 @@ input, select, textarea {
 }
 
 .sticky-header button {
-  align-self: center;
   background-color: var(--tangerine);
   background-image: none;
   background-position: 0 90%;
@@ -94,7 +105,11 @@ input, select, textarea {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+
+  margin-top: auto;
+  margin-bottom: 10%;
 }
+
 
 .sticky-header button:hover {
   box-shadow: var(--scarlet) 2px 8px 8px -5px;
@@ -105,6 +120,7 @@ input, select, textarea {
   background-color: var(--vanilla);
   color: var(--tangerine);
 }
+
 
 #add-post {
   background-color: var(--tangerine);
@@ -121,10 +137,63 @@ input, select, textarea {
 }
 
 
+/* FLAME CONTAINERRRRRR ----------------- */
+#logo-container {
+  position: relative;
+  transform: translateX(-45px);
+  width: 240px;
+  height: 240px;
+}
+
+/* absolute layers */
+.reel, .flames, .words {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* ensure full overlay */
+}
+
+/* wrapper that holds the static base and animated flame */
+.flame-wrapper {
+  position: relative;
+  width: 240px;  /* match actual flame image width */
+  height: 240px; 
+}
+
+.words {
+  transform: translateX(40px);
+  z-index: 3; /* make sure it's on top, or adjust lower if needed */
+  pointer-events: none;
+}
+
+/* static part of the flame */
+.flame-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* animated top part of the flame */
+.flame-anim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: inset(0 0 50% 0); /* show only top 25% */
+  z-index: 2;
+  pointer-events: none;
+}
+
+
 /* === POSTS GRID === */
 #posts-grid {
   margin-left: 270px;
-  padding: 2em;
+  padding: 2em 2em 2em 2em; 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5em;
@@ -644,6 +713,35 @@ button[type="submit"]:hover {
   accent-color: var(--scarlet);
   margin-right: 0.5em;
 }
+
+/*== INTRO POPUP =====*/
+#intro-popup {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85); 
+  color: var(--vanilla);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  text-align: center;
+  font-family: "Barriecito", system-ui;
+  padding: 2em;
+  animation: fadeIn 0.5s ease-out;
+}
+
+#intro-popup .intro-content {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 3px solid var(--scarlet);
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 0 20px var(--scarlet);
+}
+
+#intro-popup.hidden {
+  display: none;
+}
+
 
 
 /* === FONT === */

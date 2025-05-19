@@ -7,8 +7,18 @@
     <link rel="icon" href="/images/favicon.png" type="image/png" />
   </head>
   <body>
+
+    <!-- INTRO PAGE == -->
+    <div id="intro-popup">
+      <div class="intro-content">
+        {{> logo }}
+        <h1>Welcome to The Bad Reel 🎬</h1>
+        <p>Click anywhere to enter the archive of the worst movies ever watched.</p>
+      </div>
+    </div>
+
     <div class="sticky-header">
-      <!-- === MOBILE HEADER === -->
+      <!--mobile header-->
       <div class="mobile-header">
         <div class="logo">
           <img src="/images/logo.png" alt="Logo" />
@@ -52,7 +62,7 @@
       <!-- === DESKTOP SIDEBAR === -->
       <div class="sidebar-top">
         <div class="sidebar-section logo">
-          <img src="/images/logo.png" width="100%" alt="Logo" />
+          {{> logo }}
         </div>
         <div class="sidebar-section search">
           <input type="text" id="search" placeholder="Search..." />

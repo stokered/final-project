@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
   const mobileMenu = document.getElementById("mobile-menu");
   const closeBtn = document.getElementById("close-mobile-menu");
-
+  const introPopup = document.getElementById("intro-popup");
   const genreFilters = document.querySelectorAll(".genre-filter");
   const sortFilters = document.querySelectorAll(".sort-filter");
 
@@ -91,6 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   })();
+
+  introPopup?.addEventListener("click", () => {
+    introPopup.classList.add("hidden");
+  });
 
   // === MENU TOGGLE ===
   hamburger?.addEventListener("click", () => {
@@ -389,4 +393,18 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 3000);
   }
+});
+
+// FLAME ANIMATION
+gsap.to(".flame-anim", {
+  keyframes: [
+    { y: "-3px", rotation: 1.5, duration: 0.1 },
+    { y: "3px", rotation: -2, duration: 0.15 },
+    { y: "-2px", rotation: 1, duration: 0.1 },
+    { y: "2px", rotation: -1, duration: 0.1 },
+    { y: "-1px", rotation: 2, duration: 0.1 },
+    { y: "1px", rotation: -2, duration: 0.1 },
+  ],
+  repeat: -1,
+  ease: "sine.inOut",
 });
