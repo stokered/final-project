@@ -22,7 +22,78 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileMenu = document.getElementById("mobile-menu");
   const closeBtn = document.getElementById("close-mobile-menu");
 
-  // HAMBURGER MENU
+  // ✅ NEW: Use class-based filter selectors
+  const genreFilters = document.querySelectorAll(".genre-filter");
+  const sortFilters = document.querySelectorAll(".sort-filter");
+
+  const genreMap = {};
+  let allPosts = [];
+
+  // === FETCH GENRES + AUTOCOMPLETE ===
+  (async () => {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_API_KEY}&language=en-US`
+    );
+    const data = await res.json();
+    data.genres.forEach((genre) => {
+      genreMap[genre.id] = genre.name;
+    });
+
+    let debounceTimer;
+    searchInput?.addEventListener("input", () => {
+      const query = searchInput.value.trim();
+      if (query.length < 2) return;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => fetchSuggestions(query), 300);
+    });
+
+    async function fetchSuggestions(query) {
+      try {
+        const res = await fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+            query
+          )}`
+        );
+        const data = await res.json();
+        const results = data.results.slice(0, 4);
+
+        suggestionsBox.innerHTML = results
+          .map((movie) => {
+            const year = movie.release_date?.slice(0, 4) || "Unknown";
+            const poster = movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : "/images/noposter.png";
+            const genreNames =
+              (movie.genre_ids || [])
+                .map((id) => genreMap[id])
+                .filter(Boolean)
+                .join(", ") || "Unknown";
+
+            return `<li data-title="${movie.title}" data-year="${year}" data-genre="${genreNames}" data-poster="${poster}">${movie.title} (${year})</li>`;
+          })
+          .join("");
+
+        suggestionsBox.classList.remove("hidden");
+
+        suggestionsBox.querySelectorAll("li").forEach((li) => {
+          li.addEventListener("click", () => {
+            titleInput.value = li.dataset.title;
+            yearInput.value = li.dataset.year;
+            genreInput.value = li.dataset.genre;
+            posterInput.value = li.dataset.poster;
+            posterPreview.src = li.dataset.poster;
+            suggestionsBox.classList.add("hidden");
+            manualFields.classList.remove("hidden");
+            toggleManualBtn.textContent = "Hide Manual Fields";
+          });
+        });
+      } catch (err) {
+        console.error("TMDB fetch error:", err);
+      }
+    }
+  })();
+
+  // === MENU TOGGLE ===
   hamburger?.addEventListener("click", () => {
     mobileMenu.classList.remove("hidden");
     mobileMenu.classList.add("show");
@@ -33,51 +104,96 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileMenu.classList.remove("show");
   });
 
-  // ADD POST (Desktop + Mobile)
-  function openSubmissionPopup() {
-    submitPopup.classList.remove("hidden");
-    if (mobileMenu?.classList.contains("show")) {
-      mobileMenu.classList.remove("show");
-      mobileMenu.classList.add("hidden");
-    }
-  }
-
-  document
-    .getElementById("add-post")
-    ?.addEventListener("click", openSubmissionPopup);
-  document
-    .getElementById("add-post-mobile")
-    ?.addEventListener("click", openSubmissionPopup);
-
-  // Toggle manual fields
-  toggleManualBtn?.addEventListener("click", () => {
-    const isVisible = manualFields.classList.contains("show");
-    manualFields.classList.toggle("show", !isVisible);
-    manualFields.classList.toggle("hidden", isVisible);
-    toggleManualBtn.textContent = isVisible
-      ? "Add Manually"
-      : "Hide Manual Fields";
+  // === INIT FROM DOM ===
+  const initialPostEls = document.querySelectorAll(".post-card");
+  initialPostEls.forEach((el) => {
+    const post = {
+      _id: el.dataset.id,
+      title: el.dataset.title,
+      review: el.dataset.review,
+      name: el.dataset.name,
+      year: el.dataset.year,
+      genre: el.dataset.genre,
+      posterUrl: el.dataset.poster,
+      rating: parseInt(el.dataset.rating, 10),
+    };
+    allPosts.push(post);
   });
 
-  function toggleNameField(checkboxElement, nameFieldElement) {
-    if (checkboxElement.checked) {
-      nameFieldElement.classList.add("hidden");
-    } else {
-      nameFieldElement.classList.remove("hidden");
+  // ✅ UPDATED: Event listeners for all filters
+  genreFilters.forEach((filter) =>
+    filter.addEventListener("change", () => renderPosts(allPosts))
+  );
+  sortFilters.forEach((filter) =>
+    filter.addEventListener("change", () => renderPosts(allPosts))
+  );
+
+  // ✅ UPDATED: renderPosts with visible filter detection
+  function renderPosts(posts) {
+    const grid = document.getElementById("posts-grid");
+    grid.innerHTML = "";
+
+    const selectedGenre =
+      [...genreFilters].find((el) => el.offsetParent !== null)?.value || "";
+    const sortBy =
+      [...sortFilters].find((el) => el.offsetParent !== null)?.value || "";
+
+    console.log("Genre filter:", selectedGenre);
+    console.log("Sort filter:", sortBy);
+
+    let filtered = [...posts];
+
+    if (selectedGenre) {
+      filtered = filtered.filter((p) =>
+        p.genre?.toLowerCase().includes(selectedGenre.toLowerCase())
+      );
     }
+
+    if (sortBy === "recent") {
+      filtered.sort((a, b) => b._id.localeCompare(a._id));
+    } else if (sortBy === "worst") {
+      filtered.sort((a, b) => b.rating - a.rating);
+    } else if (sortBy === "most") {
+      const countMap = {};
+      filtered.forEach((p) => {
+        const key = p.title.toLowerCase();
+        countMap[key] = (countMap[key] || 0) + 1;
+      });
+      filtered.sort((a, b) => {
+        const countA = countMap[a.title.toLowerCase()];
+        const countB = countMap[b.title.toLowerCase()];
+        return countB - countA;
+      });
+    }
+
+    filtered.forEach((post) => {
+      const card = document.createElement("div");
+      card.className = "post-card";
+      card.dataset.id = post._id;
+      card.dataset.title = post.title;
+      card.dataset.review = post.review;
+      card.dataset.name = post.name;
+      card.dataset.year = post.year;
+      card.dataset.genre = post.genre;
+      card.dataset.poster = post.posterUrl;
+      card.dataset.rating = post.rating;
+
+      card.innerHTML = `
+        <img src="${post.posterUrl}" alt="${post.title}" class="poster" />
+        <div class="title">${post.title}</div>
+        <div class="rating-thumbs" data-rating="${post.rating}"></div>
+      `;
+      renderThumbs(card.querySelector(".rating-thumbs"), post.rating);
+      bindCardClick(card);
+      grid.appendChild(card);
+    });
+
+    console.log("Rendered", filtered.length, "posts");
   }
 
-  toggleNameField(checkbox, commentName);
-  toggleNameField(submitCheckbox, submitName);
+  renderPosts(allPosts); // Initial call
 
-  checkbox.addEventListener("change", () =>
-    toggleNameField(checkbox, commentName)
-  );
-  submitCheckbox.addEventListener("change", () =>
-    toggleNameField(submitCheckbox, submitName)
-  );
-
-  // === THUMBS RATING ===
+  // === RATING LOGIC ===
   const thumbs = document.querySelectorAll("#thumb-rating .thumb");
   const ratingInput = document.getElementById("rating-value");
   let selectedRating = 0;
@@ -110,135 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // INIT RATING DISPLAY FOR EXISTING POSTS
-  document.querySelectorAll(".rating-thumbs").forEach((div) => {
-    const rating = parseInt(div.dataset.rating, 10) || 0;
-    renderThumbs(div, rating);
-  });
-
-  // === SEARCH AUTOCOMPLETE ===
-  let debounceTimer;
-  searchInput?.addEventListener("input", () => {
-    const query = searchInput.value.trim();
-    if (query.length < 2) return;
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => fetchSuggestions(query), 300);
-  });
-
-  async function fetchSuggestions(query) {
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
-          query
-        )}`
-      );
-      const data = await res.json();
-      const results = data.results.slice(0, 4);
-
-      suggestionsBox.innerHTML = results
-        .map((movie) => {
-          const year = movie.release_date?.slice(0, 4) || "Unknown";
-          const poster = movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : "/images/noposter.png";
-          return `<li data-title="${movie.title}" data-year="${year}" data-genre="Unknown" data-poster="${poster}">${movie.title} (${year})</li>`;
-        })
-        .join("");
-
-      suggestionsBox.classList.remove("hidden");
-
-      suggestionsBox.querySelectorAll("li").forEach((li) => {
-        li.addEventListener("click", () => {
-          titleInput.value = li.dataset.title;
-          yearInput.value = li.dataset.year;
-          genreInput.value = li.dataset.genre;
-          posterInput.value = li.dataset.poster;
-          posterPreview.src = li.dataset.poster;
-          suggestionsBox.classList.add("hidden");
-          manualFields.classList.remove("hidden");
-          toggleManualBtn.textContent = "Hide Manual Fields";
-        });
-      });
-    } catch (err) {
-      console.error("TMDB fetch error:", err);
-    }
-  }
-
-  // === MODAL CLOSES ===
-  document
-    .getElementById("close-submit-popup")
-    ?.addEventListener("click", () => {
-      submitPopup.classList.add("hidden");
-    });
-
-  document.getElementById("close-popup")?.addEventListener("click", () => {
-    popup.classList.add("hidden");
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      popup.classList.add("hidden");
-      submitPopup.classList.add("hidden");
-    }
-  });
-
-  window.addEventListener("click", (e) => {
-    if (e.target === popup) popup.classList.add("hidden");
-    if (e.target === submitPopup) submitPopup.classList.add("hidden");
-  });
-
-  // === SUBMIT FORM ===
-  submitForm?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(submitForm);
-    const payload = Object.fromEntries(formData.entries());
-    payload.rating = parseInt(payload.rating, 10) || 0;
-    payload.name = formData.get("isAnonymous")
-      ? "Anonymous"
-      : payload.name || "Anonymous";
-
-    try {
-      const res = await fetch("/entries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("Submit failed");
-      const newEntry = await res.json();
-
-      const card = document.createElement("div");
-      card.className = "post-card";
-      card.dataset.id = newEntry._id;
-      card.dataset.title = newEntry.title;
-      card.dataset.review = newEntry.review;
-      card.dataset.name = newEntry.name;
-      card.dataset.year = newEntry.year || "Unknown";
-      card.dataset.genre = newEntry.genre || "Unknown";
-      card.dataset.poster = newEntry.posterUrl || "/images/noposter.png";
-      card.dataset.rating = newEntry.rating;
-
-      card.innerHTML = `
-        <img src="${newEntry.posterUrl}" alt="${newEntry.title}" class="poster" />
-        <div class="title">${newEntry.title}</div>
-        <div class="rating-thumbs" data-rating="${newEntry.rating}"></div>
-      `;
-
-      document.getElementById("posts-grid").prepend(card);
-      renderThumbs(card.querySelector(".rating-thumbs"), newEntry.rating);
-      bindCardClick(card);
-      submitForm.reset();
-      highlightThumbs(0);
-      manualFields.classList.add("hidden");
-      toggleManualBtn.textContent = "Add Manually";
-      submitPopup.classList.add("hidden");
-      showToast("🎬 Movie dumped successfully!");
-    } catch (err) {
-      console.error(err);
-      showToast("Failed to submit movie.");
-    }
-  });
-
-  // === POST CARD POPUP ===
   function bindCardClick(card) {
     card.addEventListener("click", () => {
       document.getElementById("popup-title").textContent = card.dataset.title;
@@ -255,14 +242,77 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("popup-rating"),
         parseInt(card.dataset.rating)
       );
+      popup.dataset.entryId = card.dataset.id;
       popup.classList.remove("hidden");
       loadComments(card.dataset.id);
     });
   }
 
-  document.querySelectorAll(".post-card").forEach(bindCardClick);
+  document.getElementById("close-popup")?.addEventListener("click", () => {
+    popup.classList.add("hidden");
+  });
 
-  // === COMMENTS ===
+  document
+    .getElementById("close-submit-popup")
+    ?.addEventListener("click", () => {
+      submitPopup.classList.add("hidden");
+    });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      popup.classList.add("hidden");
+      submitPopup.classList.add("hidden");
+    }
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === popup) popup.classList.add("hidden");
+    if (e.target === submitPopup) submitPopup.classList.add("hidden");
+  });
+
+  document.querySelectorAll("#add-post-mobile, .add-post").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      submitPopup.classList.remove("hidden");
+      if (mobileMenu?.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+        mobileMenu.classList.add("hidden");
+      }
+      submitForm.reset();
+      highlightThumbs(0);
+      manualFields.classList.add("hidden");
+      toggleManualBtn.textContent = "Add Manually";
+      posterPreview.src = "/images/noposter.png";
+      posterInput.value = "/images/noposter.png";
+      toggleNameField(submitCheckbox, submitName);
+    });
+  });
+
+  toggleManualBtn?.addEventListener("click", () => {
+    const isVisible = manualFields.classList.contains("show");
+    manualFields.classList.toggle("show", !isVisible);
+    manualFields.classList.toggle("hidden", isVisible);
+    toggleManualBtn.textContent = isVisible
+      ? "Add Manually"
+      : "Hide Manual Fields";
+  });
+
+  function toggleNameField(checkboxEl, nameFieldEl) {
+    if (checkboxEl.checked) {
+      nameFieldEl.classList.add("hidden");
+    } else {
+      nameFieldEl.classList.remove("hidden");
+    }
+  }
+
+  toggleNameField(checkbox, commentName);
+  toggleNameField(submitCheckbox, submitName);
+  checkbox.addEventListener("change", () =>
+    toggleNameField(checkbox, commentName)
+  );
+  submitCheckbox.addEventListener("change", () =>
+    toggleNameField(submitCheckbox, submitName)
+  );
+
   async function loadComments(entryId) {
     const section = document.getElementById("comments-section");
     if (!section) return;
@@ -287,9 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const comment = commentForm.comment.value.trim();
     const commenter = commentForm.commenter.value.trim();
     const anonymous = commentForm.anonymous.checked;
-    const entryId =
-      document.querySelector("#popup .post-card")?.dataset.id ||
-      document.querySelector(".post-card[data-id]")?.dataset.id;
+    const entryId = popup.dataset.entryId;
     if (!comment || !entryId) return;
 
     try {
@@ -300,6 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       if (!res.ok) throw new Error("Comment failed");
       commentForm.reset();
+      toggleNameField(checkbox, commentName);
       loadComments(entryId);
     } catch (err) {
       console.error(err);
@@ -307,7 +356,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // === TOAST ===
+  submitForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(submitForm);
+    const payload = Object.fromEntries(formData.entries());
+    payload.rating = parseInt(payload.rating, 10) || 0;
+    payload.name = formData.get("isAnonymous")
+      ? "Anonymous"
+      : payload.name || "Anonymous";
+
+    try {
+      const res = await fetch("/entries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Submit failed");
+      const newEntry = await res.json();
+      allPosts.unshift(newEntry);
+      renderPosts(allPosts);
+      submitForm.reset();
+      highlightThumbs(0);
+      manualFields.classList.add("hidden");
+      toggleManualBtn.textContent = "Add Manually";
+      posterPreview.src = "/images/noposter.png";
+      posterInput.value = "/images/noposter.png";
+      toggleNameField(submitCheckbox, submitName);
+      submitPopup.classList.add("hidden");
+      showToast("🎬 Movie dumped successfully!");
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to submit movie.");
+    }
+  });
+
   function showToast(message) {
     const toast = document.getElementById("toast");
     toast.textContent = message;

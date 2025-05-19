@@ -24,19 +24,13 @@ body {
   display: none !important;
 }
 
-button, input, select, textarea {
+input, select, textarea {
   font-family: inherit;
   font-size: 1em;
   border-radius: 4px;
   border: none;
   background-color: var(--parchment);
   color: var(--darkgrey);
-}
-
-button:hover {
-  cursor: pointer;
-  background-color: var(--parchment);
-  color: var(--tangerine);
 }
 
 
@@ -64,16 +58,56 @@ button:hover {
 }
 
 .sticky-header input,
-.sticky-header select,
-.sticky-header button {
+.sticky-header select {
   padding: 0.5em;
   width: 100%;
   margin-top: 0.5em;
 }
 
+.sticky-header button {
+  align-self: center;
+  background-color: var(--tangerine);
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--vanilla);
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  box-sizing: border-box;
+  color: var(--vanilla);
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Syne Mono", monospace;
+  font-size: 1rem;
+  line-height: 23px;
+  outline: none;
+  padding: .75rem;
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.sticky-header button:hover {
+  box-shadow: var(--scarlet) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+  font-family: "Syne Mono", monospace;
+  border-color: var(--tangerine);
+  background-color: var(--vanilla);
+  color: var(--tangerine);
+}
+
 #add-post {
-  background: var(--scarlet);
-  color: var(--parchment);
+  background-color: var(--tangerine);
+  color: var(--scarlet);
   font-weight: bold;
   transition: background 0.2s ease;
   box-shadow: 0 4px 12px var(--glow);
@@ -121,7 +155,6 @@ button:hover {
 }
 
 
-/* === POPUPS & MODALS === */
 /* === POPUPS & MODALS === */
 #popup, #submit-popup {
   position: fixed;
@@ -274,6 +307,44 @@ button:hover {
 }
 
 button[type="submit"] {
+  align-self: center;
+  background-color: var(--tangerine);
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--vanilla);
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  box-sizing: border-box;
+  color: var(--parchment);
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Syne Mono", monospace;
+  font-size: 1rem;
+  line-height: 23px;
+  outline: none;
+  padding: .75rem;
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button[type="submit"]:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+  font-family: "Syne Mono", monospace;
+}
+
+.add-post {
   margin-top: 1em;
   padding: 0.8em 1.2em;
   background: var(--scarlet);
@@ -283,8 +354,9 @@ button[type="submit"] {
   text-transform: uppercase;
 }
 
-button[type="submit"]:hover {
+.add-post:hover{
   background: var(--tangerine);
+  cursor: pointer
 }
 
 
@@ -506,6 +578,16 @@ button[type="submit"]:hover {
   color: var(--scarlet);
   font-weight: bold;
   border: none;
+  cursor: pointer;
+  float: left;
+}
+
+#close-popup:hover {
+  cursor: pointer;
+  color: var(--darkgrey);
+}
+
+#close-submit-popup:hover {
   cursor: pointer;
 }
 

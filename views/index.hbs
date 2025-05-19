@@ -4,10 +4,9 @@
     <meta charset="UTF-8" />
     <title>{{title}}</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
   </head>
   <body>
-
     <div class="sticky-header">
       <!-- === MOBILE HEADER === -->
       <div class="mobile-header">
@@ -17,15 +16,23 @@
         <button class="hamburger" id="hamburger">&#9776;</button>
       </div>
 
-      <!-- === MOBILE SLIDEOUT MENU === -->
+      <!-- === MOBILE MENU === -->
       <div class="mobile-menu hidden" id="mobile-menu">
         <button id="close-mobile-menu" class="close-btn">✕</button>
         <div class="sidebar-section search">
           <input type="text" id="search" placeholder="Search..." />
         </div>
+
         <div class="sidebar-section filters">
-          <label for="genre-filter">Filter by Genre:</label>
-          <select id="genre-filter" name="genre">
+          <label for="sort-mobile">Sort by:</label>
+          <select class="sort-filter" id="sort-mobile">
+            <option value="recent">Recently Added</option>
+            <option value="most">Most Added</option>
+            <option value="worst">Lowest Reviewed</option>
+          </select>
+
+          <label for="genre-mobile">Filter by Genre:</label>
+          <select class="genre-filter" id="genre-mobile">
             <option value="">All Genres</option>
             <option>Action</option><option>Adventure</option><option>Animation</option>
             <option>Comedy</option><option>Crime</option><option>Documentary</option>
@@ -35,6 +42,7 @@
             <option>Thriller</option><option>War</option><option>Western</option>
           </select>
         </div>
+
         <div class="sidebar-section note">
           <p>Do your worst.</p>
           <button id="add-post-mobile">Wreck a Reel</button>
@@ -49,9 +57,17 @@
         <div class="sidebar-section search">
           <input type="text" id="search" placeholder="Search..." />
         </div>
+
         <div class="sidebar-section filters">
-          <label for="genre-filter">Filter by Genre:</label>
-          <select id="genre-filter" name="genre">
+          <label for="sort-desktop">Sort by:</label>
+          <select class="sort-filter" id="sort-desktop">
+            <option value="recent">Recently Added</option>
+            <option value="most">Most Added</option>
+            <option value="worst">Lowest Reviewed</option>
+          </select>
+
+          <label for="genre-desktop">Filter by Genre:</label>
+          <select class="genre-filter" id="genre-desktop">
             <option value="">All Genres</option>
             <option>Action</option><option>Adventure</option><option>Animation</option>
             <option>Comedy</option><option>Crime</option><option>Documentary</option>
@@ -62,10 +78,11 @@
           </select>
         </div>
       </div>
+
       <div class="sidebar-bottom">
         <div class="sidebar-section note">
           <p>Do your worst.</p>
-          <button id="add-post">Wreck a Reel</button>
+          <button class="add-post">Wreck a Reel</button>
         </div>
       </div>
     </div>
@@ -89,7 +106,7 @@
       {{/each}}
     </div>
 
-    <!-- === POST DETAIL POPUP === -->
+    <!-- === POPUP === -->
     <div id="popup" class="hidden">
       <div class="popup-content review-popup">
         <button id="close-popup">X</button>
