@@ -8,8 +8,40 @@
   </head>
   <body>
 
-    <!-- === SIDEBAR === -->
     <div class="sticky-header">
+      <!-- === MOBILE HEADER === -->
+      <div class="mobile-header">
+        <div class="logo">
+          <img src="/images/logo.png" alt="Logo" />
+        </div>
+        <button class="hamburger" id="hamburger">&#9776;</button>
+      </div>
+
+      <!-- === MOBILE SLIDEOUT MENU === -->
+      <div class="mobile-menu hidden" id="mobile-menu">
+        <button id="close-mobile-menu" class="close-btn">✕</button>
+        <div class="sidebar-section search">
+          <input type="text" id="search" placeholder="Search..." />
+        </div>
+        <div class="sidebar-section filters">
+          <label for="genre-filter">Filter by Genre:</label>
+          <select id="genre-filter" name="genre">
+            <option value="">All Genres</option>
+            <option>Action</option><option>Adventure</option><option>Animation</option>
+            <option>Comedy</option><option>Crime</option><option>Documentary</option>
+            <option>Drama</option><option>Family</option><option>Fantasy</option>
+            <option>History</option><option>Horror</option><option>Musical</option>
+            <option>Mystery</option><option>Romance</option><option>Sci-Fi</option>
+            <option>Thriller</option><option>War</option><option>Western</option>
+          </select>
+        </div>
+        <div class="sidebar-section note">
+          <p>Do your worst.</p>
+          <button id="add-post-mobile">Wreck a Reel</button>
+        </div>
+      </div>
+
+      <!-- === DESKTOP SIDEBAR === -->
       <div class="sidebar-top">
         <div class="sidebar-section logo">
           <img src="/images/logo.png" width="100%" alt="Logo" />
@@ -79,8 +111,8 @@
           <div class="submit-divider"></div>
           <h3>Comments</h3>
           <form id="comment-form">
-            <input type="text" name="commenter" placeholder="Your name" />
-            <label><input type="checkbox" name="anonymous" /> Post anonymously</label>
+            <input type="text" id="comment-name" name="commenter" placeholder="Your name" />
+            <label><input type="checkbox" id="checkbox" name="anonymous" /> Post anonymously</label>
             <textarea name="comment" placeholder="Leave a comment..."></textarea>
             <button type="submit">Submit Comment</button>
           </form>
@@ -115,10 +147,12 @@
             </div>
           </div>
           <div class="name-anon">
-            <label>Your Name:
-              <input type="text" name="name" />
-            </label>
-            <label><input type="checkbox" name="isAnonymous" /> Post anonymously</label>
+            <div id="submit-name">
+              <label>Your Name:
+                <input type="text" name="name" />
+              </label>
+            </div>
+            <label><input type="checkbox" id="submit-checkbox" name="isAnonymous" /> Post anonymously</label>
           </div>
           <div class="thumb-rating" id="thumb-rating">
             <input type="hidden" name="rating" id="rating-value" value="0" />

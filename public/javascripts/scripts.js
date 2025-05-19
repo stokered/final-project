@@ -14,23 +14,68 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitPopup = document.getElementById("submit-popup");
   const submitForm = document.getElementById("submit-form");
   const commentForm = document.getElementById("comment-form");
+  const commentName = document.getElementById("comment-name");
+  const checkbox = document.getElementById("checkbox");
+  const submitCheckbox = document.getElementById("submit-checkbox");
+  const submitName = document.getElementById("submit-name");
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const closeBtn = document.getElementById("close-mobile-menu");
 
-toggleManualBtn?.addEventListener("click", () => {
-  const isVisible = manualFields.classList.contains("show");
+  // HAMBURGER MENU
+  hamburger?.addEventListener("click", () => {
+    mobileMenu.classList.remove("hidden");
+    mobileMenu.classList.add("show");
+  });
 
-  manualFields.classList.toggle("show", !isVisible);
-  manualFields.classList.toggle("hidden", isVisible); // hide only if visible
+  closeBtn?.addEventListener("click", () => {
+    mobileMenu.classList.add("hidden");
+    mobileMenu.classList.remove("show");
+  });
 
-  // === COME BACK TO THIS::: manual entry toggled onto "hide fields" ???? 
-  toggleManualBtn.textContent = isVisible
-    ? "Add Manually"
-    : "Hide Manual Fields";
-});
+  // ADD POST (Desktop + Mobile)
+  function openSubmissionPopup() {
+    submitPopup.classList.remove("hidden");
+    if (mobileMenu?.classList.contains("show")) {
+      mobileMenu.classList.remove("show");
+      mobileMenu.classList.add("hidden");
+    }
+  }
 
+  document
+    .getElementById("add-post")
+    ?.addEventListener("click", openSubmissionPopup);
+  document
+    .getElementById("add-post-mobile")
+    ?.addEventListener("click", openSubmissionPopup);
 
-  
-  
-  
+  // Toggle manual fields
+  toggleManualBtn?.addEventListener("click", () => {
+    const isVisible = manualFields.classList.contains("show");
+    manualFields.classList.toggle("show", !isVisible);
+    manualFields.classList.toggle("hidden", isVisible);
+    toggleManualBtn.textContent = isVisible
+      ? "Add Manually"
+      : "Hide Manual Fields";
+  });
+
+  function toggleNameField(checkboxElement, nameFieldElement) {
+    if (checkboxElement.checked) {
+      nameFieldElement.classList.add("hidden");
+    } else {
+      nameFieldElement.classList.remove("hidden");
+    }
+  }
+
+  toggleNameField(checkbox, commentName);
+  toggleNameField(submitCheckbox, submitName);
+
+  checkbox.addEventListener("change", () =>
+    toggleNameField(checkbox, commentName)
+  );
+  submitCheckbox.addEventListener("change", () =>
+    toggleNameField(submitCheckbox, submitName)
+  );
 
   // === THUMBS RATING ===
   const thumbs = document.querySelectorAll("#thumb-rating .thumb");
@@ -65,18 +110,11 @@ toggleManualBtn?.addEventListener("click", () => {
     }
   }
 
-
-
-
-  // === INIT RATING DISPLAY FOR EXISTING POSTS ===
+  // INIT RATING DISPLAY FOR EXISTING POSTS
   document.querySelectorAll(".rating-thumbs").forEach((div) => {
     const rating = parseInt(div.dataset.rating, 10) || 0;
     renderThumbs(div, rating);
   });
-
-
-
-
 
   // === SEARCH AUTOCOMPLETE ===
   let debounceTimer;
@@ -126,16 +164,7 @@ toggleManualBtn?.addEventListener("click", () => {
     }
   }
 
-
-
-
-
-
-  // === MODALS ===
-  document.getElementById("add-post")?.addEventListener("click", () => {
-    submitPopup.classList.remove("hidden");
-  });
-
+  // === MODAL CLOSES ===
   document
     .getElementById("close-submit-popup")
     ?.addEventListener("click", () => {
@@ -157,11 +186,6 @@ toggleManualBtn?.addEventListener("click", () => {
     if (e.target === popup) popup.classList.add("hidden");
     if (e.target === submitPopup) submitPopup.classList.add("hidden");
   });
-
-
-
-
-
 
   // === SUBMIT FORM ===
   submitForm?.addEventListener("submit", async (e) => {
@@ -238,11 +262,6 @@ toggleManualBtn?.addEventListener("click", () => {
 
   document.querySelectorAll(".post-card").forEach(bindCardClick);
 
-
-
-
-
-
   // === COMMENTS ===
   async function loadComments(entryId) {
     const section = document.getElementById("comments-section");
@@ -287,10 +306,6 @@ toggleManualBtn?.addEventListener("click", () => {
       showToast("Failed to post comment.");
     }
   });
-
-
-
-
 
   // === TOAST ===
   function showToast(message) {

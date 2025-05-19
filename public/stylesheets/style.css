@@ -1,3 +1,4 @@
+/* === VARIABLES === */
 :root {
   --darkgrey: #1C2025;
   --scarlet: #D82020;
@@ -11,10 +12,10 @@
   box-sizing: border-box;
 }
 
-body, .popup-content {
+body {
   margin: 0;
   font-family: "Syne Mono", monospace;
-  background: var(--parchment) url("https://www.transparenttextures.com/patterns/paper-fibers.png") repeat;
+  background: var(--parchment) url("https://www.transparenttextures.com/patterns/asfalt-dark.png") repeat;
   color: var(--darkgrey);
   line-height: 1.5;
 }
@@ -39,9 +40,7 @@ button:hover {
 }
 
 
-
-
-/* === SIDEBAR === */
+/* === STICKY SIDEBAR === */
 .sticky-header {
   position: fixed;
   top: 0;
@@ -58,8 +57,7 @@ button:hover {
   overflow-y: auto;
 }
 
-.sidebar-top,
-.sidebar-bottom {
+.sidebar-top, .sidebar-bottom {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
@@ -86,10 +84,6 @@ button:hover {
 #add-post:hover {
   background: var(--tangerine);
 }
-
-
-
-
 
 
 /* === POSTS GRID === */
@@ -126,18 +120,10 @@ button:hover {
   font-size: 1.1em;
 }
 
-h2 {
-  font-family: "Rubik Doodle Shadow", system-ui;
-}
-
-
-
-
-
 
 /* === POPUPS & MODALS === */
-#popup,
-#submit-popup {
+/* === POPUPS & MODALS === */
+#popup, #submit-popup {
   position: fixed;
   inset: 0;
   display: none;
@@ -148,18 +134,13 @@ h2 {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-#popup:not(.hidden),
-#submit-popup:not(.hidden) {
+#popup:not(.hidden), #submit-popup:not(.hidden) {
   display: flex;
 }
 
 .popup-content {
-  background: var(--parchment);
+  background-color: var(--vanilla);
+  color: var(--tangerine);
   padding: 2em;
   border-radius: 14px;
   width: 90%;
@@ -170,6 +151,13 @@ h2 {
   flex-direction: column;
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
   animation: slideUp 0.4s ease-out;
+  border: 5px double var(--scarlet);
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
@@ -177,105 +165,127 @@ h2 {
   to { transform: translateY(0); opacity: 1; }
 }
 
-
-
-
-
-
-/* === SUBMIT FORM === */
-#submit-form {
+.search-group {
   display: flex;
-  flex-direction: column;
-  gap: 1.2em;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  flex-wrap: wrap;
 }
 
-#submit-form {
-  padding: 1.5em;
-  border-radius: 10px;
-  box-shadow: 4px 4px 0 var(--scarlet);
+#movie-suggestions {
+  list-style: none;
+  background: white;
+  border: 1px solid var(--darkgrey);
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0.5em 0;
+  position: absolute;
+  width: 300px;
+  z-index: 999;
 }
 
-#submit-form label {
-/* ==== STILL NOT SHOWING UP---COME BACK TO LATER ========================*/
-  display: block;
-  margin-bottom: 0.5em;
-  font-weight: bold;
-  color: var(--darkgrey);
+#movie-suggestions li {
+  padding: 0.5em;
+  cursor: pointer;
 }
 
-#submit-form input[type="text"],
-#submit-form textarea {
-  background-color: var(--parchment);
-  border: 2px solid var(--scarlet);
-  padding: 0.6em;
-  width: 100%;
-  border-radius: 6px;
-}
-
-.submit-divider {
-  height: 2px;
-  background-color: var(--darkgrey);
-  opacity: 0.2;
-  margin: 1.5em 0;
-}
-
-
-.search-group input,
-.search-group button {
-  width: 100%;
-  margin-top: 0.5em;
+#movie-suggestions li:hover {
+  background-color: var(--vanilla);
 }
 
 .poster-and-details {
   display: flex;
   gap: 1em;
   align-items: flex-start;
+  margin-top: 1em;
 }
 
 .poster-preview {
   width: 100px;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+
+.manual-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  padding-left: 0.5em;
+  border-left: 3px solid var(--scarlet);
+  margin-top: 0.5em;
+  transition: all 0.3s ease;
 }
 
 .name-anon {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 1em;
+  margin-top: 1em;
+}
+
+.thumb-rating {
+  display: flex;
+  gap: 0.5em;
+  justify-content: center;
+  cursor: pointer;
+  margin: 1em 0;
+}
+
+.thumb-rating .thumb {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s ease;
+}
+
+.thumb-rating .thumb:hover {
+  transform: scale(1.2);
 }
 
 .review-section textarea {
   width: 100%;
   min-height: 120px;
   resize: vertical;
-}
-
-
-
-
-
-/* === MANUAL FIELDS TOGGLE === */
-.manual-fields {
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75em;
   margin-top: 1em;
-  padding-left: 0.5em;
-  border-left: 3px solid var(--scarlet);
-  transition: max-height 0.5s ease, opacity 0.4s ease;
+  padding: 0.5em;
+  border: 2px solid var(--scarlet);
+  border-radius: 6px;
+  background-color: var(--parchment);
 }
 
-.manual-fields.show {
-  max-height: 500px;
-  opacity: 1;
+#submit-form label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: var(--darkgrey);
 }
 
+#submit-name input[type="text"],
+#submit-checkbox {
+  margin-top: 0.5em;
+  width: 100%;
+}
 
+#submit-checkbox {
+  width: auto;
+}
 
+button[type="submit"] {
+  margin-top: 1em;
+  padding: 0.8em 1.2em;
+  background: var(--scarlet);
+  color: var(--parchment);
+  font-weight: bold;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+button[type="submit"]:hover {
+  background: var(--tangerine);
+}
 
 
 /* === THUMBS === */
@@ -309,10 +319,6 @@ h2 {
 }
 
 
-
-
-
-
 /* === COMMENT STYLING === */
 .comment {
   background: var(--vanilla);
@@ -324,12 +330,7 @@ h2 {
 }
 
 
-
-
-
-
-
-/* === POPUP CONTENT STRUCTURE === */
+/* === REVIEW POPUP STRUCTURE === */
 .popup-main {
   display: flex;
   flex-wrap: wrap;
@@ -362,9 +363,13 @@ h2 {
   box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
 }
 
-
-
-
+#popup-review::before {
+  content: "I hate it because:";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: var(--scarlet);
+}
 
 
 /* === AUTOCOMPLETE === */
@@ -391,10 +396,6 @@ h2 {
 }
 
 
-
-
-
-
 /* === TOAST === */
 #toast {
   position: fixed;
@@ -416,28 +417,78 @@ h2 {
   opacity: 1;
 }
 
+.mobile-header {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
+}
 
 
-
-
-
-/* === MEDIA QUERIES === */
+/* === MOBILE MENU === */
 @media (max-width: 768px) {
   .sticky-header {
+    position: relative;
+    flex-direction: column;
     width: 100%;
     height: auto;
-    position: relative;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 1em;
-    gap: 1em;
+    background: var(--darkgrey);
   }
 
   .sidebar-top,
   .sidebar-bottom {
+    display: none;
+  }
+
+  .logo img {
+    max-width: 120px;
+    height: auto;
+  }
+
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
+    padding: 1em;
+  }
+
+  .hamburger {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: var(--parchment);
+    cursor: pointer;
+    padding: 0 0.5em;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: 80%;
+    background: var(--darkgrey);
+    display: flex;
     flex-direction: column;
-    gap: 1em;
+    padding: 1.5em;
+    gap: 1.5em;
+    transition: left 0.3s ease;
+    z-index: 2001;
+  }
+
+  .mobile-menu.show {
+    left: 0;
+  }
+
+  .close-btn {
+    align-self: flex-end;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--parchment);
+    cursor: pointer;
   }
 
   #posts-grid {
@@ -445,53 +496,11 @@ h2 {
     padding: 1em;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
-
-  .popup-content {
-    max-width: 95vw;
-    padding: 1em;
-  }
-
-  .poster-and-details {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .poster-preview {
-    width: 150px;
-  }
-
-  .name-anon {
-    flex-direction: column;
-  }
 }
 
-/* === REVIEW HATER LABEL === */
-#popup-review::before {
-  content: "I hate it because:";
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  color: var(--scarlet);
-}
-
-
-
-/* === DIVIDER === */
-.popup-divider {
-  height: 2px;
-  background: var(--darkgrey);
-  margin: 1.5em 0;
-  opacity: 0.3;
-}
-
-
-
-/* === X OUT BUTTON (((add something that shows i have clickout logic??? idk or keep))) === */
+/* === X OUT BUTTON === */
 #close-popup,
 #close-submit-popup {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   font-size: 1.2rem;
   background: none;
   color: var(--scarlet);
@@ -510,19 +519,23 @@ h2 {
   transform: scale(1.2) rotate(-5deg);
 }
 
-
 .post-label {
   font-weight: bold;
   color: var(--scarlet);
 }
 
+
+/* === FORM ELEMENTS === */
 #comment-form input[type="text"],
-#comment-form textarea {
+#comment-form textarea,
+#submit-form input[type="text"],
+#submit-form textarea {
   border: 2px solid var(--scarlet);
   background-color: var(--parchment);
   padding: 0.5em;
   border-radius: 6px;
   margin-bottom: 1em;
+  width: 100%;
 }
 
 #comment-form input[type="checkbox"] {
@@ -531,9 +544,7 @@ h2 {
 }
 
 
-
-
-/* ====== FONT =======*/ 
+/* === FONT === */
 .rubik-doodle-shadow-regular {
   font-family: "Rubik Doodle Shadow", system-ui;
   font-weight: 400;
