@@ -42,6 +42,15 @@ body {
   display: none !important;
 }
 
+#ranking-graphic {
+  max-width: 100%;
+  width: 380px;
+  height: auto;
+  display: block;
+  margin: 1em auto 0;
+  padding-bottom: 8px;
+}
+
 input, select, textarea {
   font-family: inherit;
   font-size: 1em;
@@ -337,6 +346,7 @@ input, select, textarea {
 .input-wrapper {
   position: relative;
   width: 100%;
+  flex: 1;
 }
 
 .form-content {
@@ -379,26 +389,28 @@ input, select, textarea {
 
 .poster-and-details {
   display: flex;
-  gap: 1em;
+  gap: 1.5em;
   align-items: flex-start;
-  margin-top: 1em;
+  width: 100%;
+  flex-wrap: nowrap; /* prevents stacking on large screens */
 }
 
 .poster-preview {
-  width: 100px;
-  border-radius: 6px;
+  width: 180px;
+  height: auto;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   flex-shrink: 0;
 }
 
 .manual-fields {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.75em;
-  padding-left: 0.5em;
+  padding-left: 1em;
   border-left: 3px solid var(--scarlet);
-  margin-top: 0.5em;
-  transition: all 0.3s ease;
+  margin-top: 0; /* ⬅️ key fix: prevents it from dropping */
 }
 
 .name-anon {
@@ -440,7 +452,7 @@ input, select, textarea {
 
 #submit-form label {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--vanilla);
   margin-bottom: 0.25em;
   display: inline-block;
@@ -487,9 +499,6 @@ button[type="submit"] {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-/* DOUBLE CHECK IF THESE R NEEDED */
-  margin-top: auto;
-  margin-bottom: 10%;
 }
 
 button[type="submit"]:hover {
@@ -532,9 +541,6 @@ button[type="submit"]:hover {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-/* DOUBLE CHECK IF THESE R NEEDED */
-  margin-top: auto;
-  margin-bottom: 10%;
 }
 
 #toggle-manual:hover {
@@ -762,7 +768,7 @@ button[type="submit"]:hover {
   justify-content: center;
   align-items: center;
   z-index: 99999;
-  padding: 2em;
+  padding: 0.5em;
 }
 
 #intro-popup.hidden {
@@ -771,13 +777,14 @@ button[type="submit"]:hover {
 
 #intro-popup .intro-content {
   background-color: rgba(20, 20, 20, 0.95);
-  background-image: url("https://www.transparenttextures.com/patterns/rocky-wall.png");
   position: relative;
   color: var(--vanilla);
-  border: 3px solid var(--tangerine);
-  padding: 1.25em;
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--vanilla);
+  padding: 0.25em;
+  border-radius: 14px;
+  box-shadow: 3px 1px 29px 8px rgba(213,82,14,0.76);
+  -webkit-box-shadow: 3px 1px 29px 8px rgba(213,82,14,0.76);
+  -moz-box-shadow: 3px 1px 29px 8px rgba(213,82,14,0.76);
   max-width: 600px;
   width: 90%;
   max-height: 90vh;       /* replace fixed height with max-height */
@@ -785,7 +792,7 @@ button[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
+  gap: 0.5em;
   text-align: center;
   font-family: "Syne Mono", monospace;
 }
@@ -797,7 +804,7 @@ button[type="submit"]:hover {
 
 #welcome {
   font-size: 1.8em;
-  margin: 0.25em 0;
+  margin: 0.05em 0;
   font-family: "Barriecito", system-ui;
   text-shadow: 2px 2px 0px var(--tangerine);
 }

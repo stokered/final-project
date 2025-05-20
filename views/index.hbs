@@ -14,6 +14,7 @@
         {{> logo }}
         <h1 id="welcome">Welcome to The Bad Reel!</h1>
         <p>Here, we celebrate the worst of cinema. Click anywhere to enter.</p>
+        <img src="/images/ranking.png" alt="ranking" id="ranking-graphic">
       </div>
     </div>
 
@@ -164,6 +165,15 @@
           <button type="button" id="toggle-manual">Add Manually</button>
         </div>
 
+        <div class="thumb-rating" id="thumb-rating">
+          <input type="hidden" name="rating" id="rating-value" value="0" />
+          <img src="/images/thumbsdown.png" data-value="1" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="2" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="3" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="4" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="5" class="thumb" />
+        </div>
+
         <div class="poster-and-details">
           <img id="poster-preview" src="/images/noposter.png" alt="Poster preview" class="poster-preview" />
           <div id="manual-fields" class="manual-fields collapse">
@@ -190,14 +200,14 @@
           </label>
         </div>
 
-        <div class="thumb-rating" id="thumb-rating">
+        {{!-- <div class="thumb-rating" id="thumb-rating">
           <input type="hidden" name="rating" id="rating-value" value="0" />
           <img src="/images/thumbsdown.png" data-value="1" class="thumb" />
           <img src="/images/thumbsdown.png" data-value="2" class="thumb" />
           <img src="/images/thumbsdown.png" data-value="3" class="thumb" />
           <img src="/images/thumbsdown.png" data-value="4" class="thumb" />
           <img src="/images/thumbsdown.png" data-value="5" class="thumb" />
-        </div>
+        </div> --}}
 
         <div class="review-section">
           <label>Review:
