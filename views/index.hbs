@@ -28,7 +28,7 @@
       <div class="mobile-menu hidden" id="mobile-menu">
         <button id="close-mobile-menu" class="close-btn">✕</button>
         <div class="sidebar-section search">
-          <input type="text" id="search" placeholder="Search..." />
+          <input type="text" id="search-mobile" placeholder="Search..." />
         </div>
 
         <div class="sidebar-section filters">
@@ -63,7 +63,7 @@
           {{> logo }}
         </div>
         <div class="sidebar-section search">
-          <input type="text" id="search" placeholder="Search..." />
+          <input type="text" id="search-desktop" placeholder="Search..." />
         </div>
 
         <div class="sidebar-section filters">
@@ -154,8 +154,10 @@
         <form id="submit-form">
           <div class="search-group">
             <label for="movie-search">Search Movie:</label>
-            <input type="text" id="movie-search" placeholder="Start typing..." autocomplete="off" />
-            <ul id="movie-suggestions" class="hidden"></ul>
+            <div class="input-wrapper">
+              <input type="text" id="movie-search" placeholder="Start typing..." autocomplete="off" />
+              <ul id="movie-suggestions" class="hidden"></ul>
+            </div>
             <button type="button" id="toggle-manual">Add Manually</button>
           </div>
           <div class="poster-and-details">

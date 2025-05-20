@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const introPopup = document.getElementById("intro-popup");
   const genreFilters = document.querySelectorAll(".genre-filter");
   const sortFilters = document.querySelectorAll(".sort-filter");
+  const desktopSearch = document.getElementById("search-desktop");
+  const mobileSearch = document.getElementById("search-mobile");
 
   const genreMap = {};
   let allPosts = [];
@@ -94,6 +96,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   introPopup?.addEventListener("click", () => {
     introPopup.classList.add("hidden");
+  });
+
+  //close search suggestion autocomplete li
+  document.addEventListener("click", (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.classList.add("hidden");
+    }
+  });
+
+  // search bar for posts
+  function handleSearchInput(query) {
+    const cleanQuery = query.trim().toLowerCase();
+
+    if (cleanQuery === "") {
+      renderPosts(allPosts);
+      return;
+    }
+
+    const filtered = allPosts.filter((post) =>
+      post.title.toLowerCase().includes(cleanQuery)
+    );
+
+    renderPosts(filtered);
+  }
+
+  desktopSearch?.addEventListener("input", () => {
+    handleSearchInput(desktopSearch.value);
+  });
+
+  mobileSearch?.addEventListener("input", () => {
+    handleSearchInput(mobileSearch.value);
   });
 
   // === MENU TOGGLE ===
@@ -178,11 +211,18 @@ document.addEventListener("DOMContentLoaded", () => {
       card.dataset.poster = post.posterUrl;
       card.dataset.rating = post.rating;
 
+      const reviewText = typeof post.review === "string" ? post.review : "";
+      const reviewPreview =
+        reviewText.split(" ").slice(0, 10).join(" ") +
+        (reviewText.split(" ").length > 10 ? "…" : "");
+
       card.innerHTML = `
         <img src="${post.posterUrl}" alt="${post.title}" class="poster" />
         <div class="title">${post.title}</div>
+        <div class="review-preview">${reviewPreview}</div>
         <div class="rating-thumbs" data-rating="${post.rating}"></div>
       `;
+
       renderThumbs(card.querySelector(".rating-thumbs"), post.rating);
       bindCardClick(card);
       grid.appendChild(card);

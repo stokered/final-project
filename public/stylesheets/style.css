@@ -32,7 +32,7 @@ body {
   margin: 0;
   font-family: "Syne Mono", monospace;
   background-color: var(--tangerine);
-  background-image: url("https://www.transparenttextures.com/patterns/skin-side-up.png");
+  background-image: url("https://www.transparenttextures.com/patterns/stucco.png");
   color: var(--scarlet);
   line-height: 1.5;
   overflow-y: auto; /* CHANGE 2 --- OVERFLOW  */
@@ -237,7 +237,7 @@ input, select, textarea {
   font-weight: bold;
   margin-top: 0.5em;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: bold;
   font-family: "Barriecito", system-ui;
   color: var(--scarlet);
@@ -254,6 +254,49 @@ input, select, textarea {
   background-color: rgba(0,0,0,0.75);
   z-index: 2000;
   animation: fadeIn 0.3s ease-out forwards;
+}
+
+.search-group {
+  margin-bottom: 1em;
+  justify-content: center;
+  background-color: var(--darkgrey);
+  color: var(--tangerine);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+/* ---------- SEARCHBAR FOR MOVIE SUBMIT FORM -------*/
+
+
+#movie-search {
+  background-color: var(--parchment);
+  color: var(--scarlet);
+  border: 2px solid var(--scarlet);
+  padding: 0.5em;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 1em;
+}
+
+#movie-search::placeholder {
+  color: var(--scarlet);
+  opacity: 0.7;
+}
+
+
+#submit-popup {
+  font-size: 1.1em;
+  color: var(--vanilla); 
+}
+
+#submit-popup .poster-preview {
+  width: 180px;
+  height: 350px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(244, 187, 108, 0.5);
+  margin-bottom: 1em;
 }
 
 #popup:not(.hidden), #submit-popup:not(.hidden) {
@@ -296,34 +339,49 @@ input, select, textarea {
   flex-wrap: wrap;
 }
 
-#movie-suggestions {
-  list-style: none;
-  background: white;
-  border: 1px solid var(--darkgrey);
-  max-height: 150px;
-  overflow-y: auto;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 100%;       /* position it just below the input */
-  left: 0;
-  width: 100%;
-  z-index: 999;
-}
+/* ----------- AUTOCOMPLETE ---------*/
 
 .search-group {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+
+#movie-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--parchment);
+  border: 2px solid var(--tangerine);
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Syne Mono", monospace;
+  color: var(--scarlet);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 #movie-suggestions li {
   padding: 0.5em;
+  border-bottom: 1px solid var(--tangerine);
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 #movie-suggestions li:hover {
-  background-color: var(--vanilla);
+  background-color: var(--tangerine);
+  color: var(--vanilla);
 }
+
+
 
 .poster-and-details {
   display: flex;
@@ -387,10 +445,11 @@ input, select, textarea {
 }
 
 #submit-form label {
-  display: block;
-  margin-bottom: 0.5em;
   font-weight: bold;
-  color: var(--scarlet);
+  font-size: 1.5rem;
+  color: var(--vanilla);
+  margin-bottom: 0.25em;
+  display: inline-block;
 }
 
 #submit-name input[type="text"],
@@ -572,7 +631,7 @@ button[type="submit"]:hover {
 }
 
 #popup-title {
-  font-size: 1.8em;
+  font-size: 2em;
   margin: 0;
   text-shadow: 2px 2px 0px var(--tangerine);
   font-family: "Barriecito", system-ui;
@@ -596,29 +655,6 @@ button[type="submit"]:hover {
   color: var(--scarlet);
 }
 
-
-/* === AUTOCOMPLETE === */
-#movie-suggestions {
-  list-style: none;
-  background: white;
-  border: 1px solid var(--darkgrey);
-  max-height: 150px;
-  overflow-y: auto;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  width: 300px;
-  z-index: 999;
-}
-
-#movie-suggestions li {
-  padding: 0.5em;
-  cursor: pointer;
-}
-
-#movie-suggestions li:hover {
-  background-color: var(--vanilla);
-}
 
 
 /* === TOAST === */
@@ -667,39 +703,22 @@ button[type="submit"]:hover {
   cursor: pointer;
 }
 
-#close-submit-popup:hover {
+#close-popup:hover {
   cursor: pointer;
   transform: translate3d(0, 1px, 0);
   color: var(--vanilla);
 }
 
-#intro-x {
-  position: absolute;
-  font-size: 1.2rem;
-  top: 12px;
-  right: 12px;
-  background: none;
-  border: none;
-  color: var(--scarlet);
-  font-weight: bold;
-  cursor: pointer;
+#popup-rating .thumb-display {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.5s ease;
 }
 
-#intro-x:hover {
-  cursor: pointer;
-  transform: translate3d(0, 1px, 0);
-  color: var(--vanilla);
-}
-
-#popup-rating img {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.2s ease;
-}
-
-#popup-rating img:hover {
+#popup-rating .thumb-display:hover {
   transform: scale(1.2) rotate(-5deg);
 }
+
 
 .post-label {
   font-weight: bold;
@@ -789,17 +808,14 @@ button[type="submit"]:hover {
   height: 40px;
 }
 
-/* rating system explained intro */
-#review-explained {
-  display: flex;
-  justify-content: space-between;
-  gap: 1em;
-  font-size: 0.8em;
-  flex-wrap: wrap;
-  text-align: center;
-  flex-shrink: 1;
-  flex-direction: row;
+/* 6 word preview on the review post cards */
+.review-preview {
+  font-size: 0.9em;
+  margin-top: 0.25em;
+  color: #333;
+  font-style: italic;
 }
+
 
 /* === MOBILE MENU === */
 @media (max-width: 768px) {
