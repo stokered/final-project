@@ -6,12 +6,23 @@ but my brain is hurting ===============*/
 /* === VARIABLES === */
 :root {
   --darkgrey: #1C2025;
-  --scarlet: #D82020;
+  --scarlet: #8c3600;
   --tangerine: #D5520E;
   --parchment: #F9F2DB;
   --vanilla: #E9DEA2;
   --glow: rgba(216, 32, 32, 0.5);
 }
+
+/* === FONTS === */
+.barriecito-regular {
+  font-family: "Barriecito", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/*   font-family: "Syne Mono", monospace; */
+
+
 
 * {
   box-sizing: border-box;
@@ -20,8 +31,10 @@ but my brain is hurting ===============*/
 body {
   margin: 0;
   font-family: "Syne Mono", monospace;
-  background: var(--parchment) url("https://www.transparenttextures.com/patterns/asfalt-dark.png") repeat;
+  background-color: var(--tangerine);
+  background-image: url("https://www.transparenttextures.com/patterns/dark-brick-wall.png");
   color: var(--darkgrey);
+
   line-height: 1.5;
   overflow-y: auto; /* CHANGE 2 --- OVERFLOW  */
 }
@@ -41,20 +54,20 @@ input, select, textarea {
 
 
 /* === STICKY SIDEBAR === */
-/* === STICKY SIDEBAR === */
 .sticky-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 260px;
   height: 100vh;
-  background: var(--darkgrey);
+  background: black;
   color: var(--parchment);
   padding: 0.5em 1em;
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
   z-index: 1000;
+  background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
 }
 
 .sidebar-top {
@@ -92,7 +105,7 @@ input, select, textarea {
   cursor: pointer;
   display: inline-block;
   font-family: "Barriecito", system-ui;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 23px;
   outline: none;
   padding: .75rem;
@@ -107,7 +120,7 @@ input, select, textarea {
   touch-action: manipulation;
 
   margin-top: auto;
-  margin-bottom: 10%;
+  margin-bottom: 20%;
 }
 
 
@@ -115,7 +128,7 @@ input, select, textarea {
   box-shadow: var(--scarlet) 2px 8px 8px -5px;
   transform: translate3d(0, 2px, 0);
   font-family: "Barriecito", system-ui;
-  font-size: 30px;
+  font-size: 25px;
   border-color: var(--tangerine);
   background-color: var(--vanilla);
   color: var(--tangerine);
@@ -193,7 +206,7 @@ input, select, textarea {
 /* === POSTS GRID === */
 #posts-grid {
   margin-left: 270px;
-  padding: 2em 2em 2em 2em; 
+  padding: 2.5em 2.5em 2.5em 2.5em; 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5em;
@@ -205,16 +218,20 @@ input, select, textarea {
   transition: transform 0.25s ease, box-shadow 0.2s ease;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background-color: #f9f2db;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
 }
 
 .post-card:hover {
-  transform: scale(1.04);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  transform: scale(1.05);
+  box-shadow: 9px 10px 0px 0px rgba(68, 38, 10, 0.75);
+  -webkit-box-shadow: 9px 10px 0px 0px rgba(68, 38, 10, 0.75);
+  -moz-box-shadow: 9px 10px 0px 0px rgba(68, 38, 10, 0.75);
 }
 
 .poster {
   width: 100%;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .title {
@@ -242,8 +259,8 @@ input, select, textarea {
 }
 
 .popup-content {
-  background-color: var(--vanilla);
-  color: var(--tangerine);
+  background: var(--darkgrey);
+  color: var(--vanilla);
   padding: 2em;
   border-radius: 14px;
   width: 90%;
@@ -254,7 +271,8 @@ input, select, textarea {
   flex-direction: column;
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
   animation: slideUp 0.4s ease-out;
-  border: 5px double var(--scarlet);
+  border: 8px outset var(--tangerine);
+  /* border: 5px double var(--scarlet); */
   position: relative;
 }
 
@@ -283,11 +301,18 @@ input, select, textarea {
   max-height: 150px;
   overflow-y: auto;
   padding: 0;
-  margin: 0.5em 0;
+  margin: 0;
   position: absolute;
-  width: 300px;
+  top: 100%;       /* position it just below the input */
+  left: 0;
+  width: 100%;
   z-index: 999;
 }
+
+.search-group {
+  position: relative;
+}
+
 
 #movie-suggestions li {
   padding: 0.5em;
@@ -339,8 +364,8 @@ input, select, textarea {
 }
 
 .thumb-rating .thumb {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   transition: transform 0.2s ease;
 }
 
@@ -363,7 +388,7 @@ input, select, textarea {
   display: block;
   margin-bottom: 0.5em;
   font-weight: bold;
-  color: var(--darkgrey);
+  color: var(--scarlet);
 }
 
 #submit-name input[type="text"],
@@ -372,13 +397,14 @@ input, select, textarea {
   width: 100%;
 }
 
+
 #submit-checkbox {
   width: auto;
 }
 
 button[type="submit"] {
-  align-self: center;
   background-color: var(--tangerine);
+  position: center;
   background-image: none;
   background-position: 0 90%;
   background-repeat: repeat no-repeat;
@@ -389,11 +415,11 @@ button[type="submit"] {
   border-color: var(--vanilla);
   box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
   box-sizing: border-box;
-  color: var(--parchment);
+  color: var(--vanilla);
   cursor: pointer;
   display: inline-block;
   font-family: "Barriecito", system-ui;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 23px;
   outline: none;
   padding: .75rem;
@@ -406,31 +432,64 @@ button[type="submit"] {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+/* DOUBLE CHECK IF THESE R NEEDED */
+  margin-top: auto;
+  margin-bottom: 10%;
 }
 
 button[type="submit"]:hover {
-  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  position: center;
+  box-shadow: var(--scarlet) 2px 8px 8px -5px;
   transform: translate3d(0, 2px, 0);
   font-family: "Barriecito", system-ui;
-  font-size: 32px;
+  font-size: 20px;
+  border-color: var(--tangerine);
+  background-color: var(--vanilla);
+  color: var(--tangerine);
 }
 
 #toggle-manual {
   background-color: var(--tangerine);
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--vanilla);
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  box-sizing: border-box;
   color: var(--vanilla);
-  border: none;
-  font-size: 15px;
-  font-family: "Syne Mono", monospace;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Barriecito", system-ui;
+  font-size: 18px;
+  line-height: 23px;
+  outline: none;
+  padding: .75rem;
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+/* DOUBLE CHECK IF THESE R NEEDED */
+  margin-top: auto;
+  margin-bottom: 10%;
 }
 
 #toggle-manual:hover {
-  background-color: var(--darkgrey);
-  color: var(--vanilla);
-  border: none;
-  font-size: 16px;
-  font-family: "Syne Mono", monospace;
-  cursor: pointer;
-  transform: translate3d(0, 1px, 0);
+  box-shadow: var(--scarlet) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+  font-family: "Barriecito", system-ui;
+  font-size: 18px;
+  border-color: var(--tangerine);
+  background-color: var(--vanilla);
+  color: var(--tangerine);
 }
 
 .add-post {
@@ -458,8 +517,8 @@ button[type="submit"]:hover {
 }
 
 .thumb-rating .thumb {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   transition: transform 0.2s ease;
 }
 
@@ -475,19 +534,20 @@ button[type="submit"]:hover {
 }
 
 .thumb-display {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }
 
 
 /* === COMMENT STYLING === */
 .comment {
   background: var(--vanilla);
+  color: var(--tangerine);
   padding: 0.75em;
-  border-left: 4px solid var(--scarlet);
+  border-left: 4px solid var(--tangerine);
   border-radius: 4px;
   margin-bottom: 1em;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 2px 2px 8px rgba(94, 38, 1, 0.788);
 }
 
 
@@ -506,22 +566,24 @@ button[type="submit"]:hover {
 .popup-right img {
   max-width: 160px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(64, 31, 1, 0.669);
 }
 
 #popup-title {
   font-size: 1.8em;
   margin: 0;
-  text-shadow: 1px 1px 0 var(--tangerine);
+  text-shadow: 2px 2px 0px var(--tangerine);
+  font-family: "Barriecito", system-ui;
 }
 
 #popup-review {
   margin-top: 1em;
   padding: 1em;
-  border: 2px dashed var(--darkgrey);
+  border: 2px double var(--darkgrey);
   background: var(--vanilla);
   border-radius: 6px;
   box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  color: var(--tangerine);
 }
 
 #popup-review::before {
@@ -586,6 +648,153 @@ button[type="submit"]:hover {
   display: none;
 }
 
+/* === X OUT BUTTON === */
+#close-popup,
+#close-submit-popup {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  color: var(--scarlet);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#close-submit-popup:hover {
+  cursor: pointer;
+  transform: translate3d(0, 1px, 0);
+  color: var(--vanilla);
+}
+
+#intro-x {
+  position: absolute;
+  font-size: 1.2rem;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--scarlet);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#intro-x:hover {
+  cursor: pointer;
+  transform: translate3d(0, 1px, 0);
+  color: var(--vanilla);
+}
+
+#popup-rating img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+#popup-rating img:hover {
+  transform: scale(1.2) rotate(-5deg);
+}
+
+.post-label {
+  font-weight: bold;
+  color: var(--tangerine);
+}
+
+
+/* === FORM ELEMENTS === */
+#comment-form input[type="text"],
+#comment-form textarea,
+#submit-form input[type="text"],
+#submit-form textarea {
+  border: 2px solid var(--tangerine);
+  background-color: var(--parchment);
+  padding: 0.5em;
+  border-radius: 6px;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+#comment-form input[type="checkbox"] {
+  accent-color: var(--tangerine);
+  margin-right: 0.5em;
+}
+
+/*== INTRO POPUP =====*/
+/* FULLSCREEN OVERLAY */
+#intro-popup {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  padding: 2em;
+}
+
+#intro-popup.hidden {
+  display: none;
+}
+
+#intro-popup .intro-content {
+  background-color: rgba(20, 20, 20, 0.95);
+  position: relative;
+  color: var(--vanilla);
+  border: 3px solid var(--tangerine);
+  padding: 1.25em;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;       /* replace fixed height with max-height */
+  overflow-y: auto;       /* allows scrolling if needed ?????? */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  text-align: center;
+  font-family: "Syne Mono", monospace;
+}
+
+
+
+.intro-content h1.welcome {
+  font-size: 1.5em;
+  margin: 0.25em 0;
+  font-family: "Barriecito", system-ui;
+}
+
+.intro-content p {
+  font-size: 0.9em;
+  line-height: 1.3;
+}
+
+/* rating section */
+.thumb-rating {
+  display: flex;
+  justify-content: center;
+  /* gap: 0.5em; */
+  transform: scale(0.9); /* slightly smaller to fit */
+  flex-shrink: 1;
+}
+
+.thumb {
+  width: 40px;
+  height: 40px;
+}
+
+/* rating system explained intro */
+#review-explained {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  font-size: 0.8em;
+  flex-wrap: wrap;
+  text-align: center;
+  flex-shrink: 1;
+  flex-direction: row;
+}
 
 /* === MOBILE MENU === */
 @media (max-width: 768px) {
@@ -602,17 +811,49 @@ button[type="submit"]:hover {
     display: none;
   }
 
-  .logo img {
-    max-width: 120px;
-    height: auto;
+    #intro-popup .intro-content {
+    padding: 1em;
+    font-size: 0.9em;
   }
 
-  .mobile-header {
+  .thumb-rating .thumb {
+    width: 32px;
+    height: 32px;
+  }
+
+ .mobile-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100px; /* increased from 64px */
+    padding: 12px 1em; /* top/bottom breathing room */
+    background-color: var(--darkgrey);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1001;
+  }
+
+  #logo-container {
+    width: 120px;
+    height: 120px;
+    transform: translateX(0);
+  }
+
+  .flame-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .flame-anim,
+  .flame-base,
+  .reel,
+  .words {
     width: 100%;
-    padding: 1em;
+    height: 100%;
+  }
+
+  .words {
+    transform: translateX(0);
   }
 
   .hamburger {
@@ -658,97 +899,3 @@ button[type="submit"]:hover {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
-
-/* === X OUT BUTTON === */
-#close-popup,
-#close-submit-popup {
-  font-size: 1.2rem;
-  background: none;
-  color: var(--scarlet);
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
-
-#close-popup:hover {
-  cursor: pointer;
-  color: var(--darkgrey);
-  transform: translate3d(0, 1px, 0);
-}
-
-#close-submit-popup:hover {
-  cursor: pointer;
-}
-
-#popup-rating img {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.2s ease;
-}
-
-#popup-rating img:hover {
-  transform: scale(1.2) rotate(-5deg);
-}
-
-.post-label {
-  font-weight: bold;
-  color: var(--scarlet);
-}
-
-
-/* === FORM ELEMENTS === */
-#comment-form input[type="text"],
-#comment-form textarea,
-#submit-form input[type="text"],
-#submit-form textarea {
-  border: 2px solid var(--scarlet);
-  background-color: var(--parchment);
-  padding: 0.5em;
-  border-radius: 6px;
-  margin-bottom: 1em;
-  width: 100%;
-}
-
-#comment-form input[type="checkbox"] {
-  accent-color: var(--scarlet);
-  margin-right: 0.5em;
-}
-
-/*== INTRO POPUP =====*/
-#intro-popup {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.85); 
-  color: var(--vanilla);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 99999;
-  text-align: center;
-  font-family: "Barriecito", system-ui;
-  padding: 2em;
-  animation: fadeIn 0.5s ease-out;
-}
-
-#intro-popup .intro-content {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 3px solid var(--scarlet);
-  padding: 2em;
-  border-radius: 12px;
-  box-shadow: 0 0 20px var(--scarlet);
-}
-
-#intro-popup.hidden {
-  display: none;
-}
-
-
-
-/* === FONT === */
-.barriecito-regular {
-  font-family: "Barriecito", system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
-
-
