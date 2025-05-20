@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
       posterInput.value = "/images/noposter.png";
       toggleNameField(submitCheckbox, submitName);
       submitPopup.classList.add("hidden");
-      showToast("🎬 Movie dumped successfully!");
+      showToast("Thanks for being a hater!");
     } catch (err) {
       console.error(err);
       showToast("Failed to submit movie.");

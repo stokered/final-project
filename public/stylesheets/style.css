@@ -32,9 +32,8 @@ body {
   margin: 0;
   font-family: "Syne Mono", monospace;
   background-color: var(--tangerine);
-  background-image: url("https://www.transparenttextures.com/patterns/dark-brick-wall.png");
-  color: var(--darkgrey);
-
+  background-image: url("https://www.transparenttextures.com/patterns/skin-side-up.png");
+  color: var(--scarlet);
   line-height: 1.5;
   overflow-y: auto; /* CHANGE 2 --- OVERFLOW  */
 }
@@ -60,14 +59,14 @@ input, select, textarea {
   left: 0;
   width: 260px;
   height: 100vh;
-  background: black;
+  background-color: var(--darkgrey);
   color: var(--parchment);
   padding: 0.5em 1em;
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
   z-index: 1000;
-  background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
+  background-image: url("https://www.transparenttextures.com/patterns/rocky-wall.png");
 }
 
 .sidebar-top {
@@ -138,11 +137,11 @@ input, select, textarea {
 #add-post {
   background-color: var(--tangerine);
   color: var(--scarlet);
-  font-weight: bold;
+  /* font-weight: bold; */
   transition: background 0.2s ease;
   box-shadow: 0 4px 12px var(--glow);
   border-radius: 8px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 #add-post:hover {
@@ -238,7 +237,10 @@ input, select, textarea {
   font-weight: bold;
   margin-top: 0.5em;
   text-align: center;
-  font-size: 1.1em;
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: "Barriecito", system-ui;
+  color: var(--scarlet);
 }
 
 
@@ -622,10 +624,10 @@ button[type="submit"]:hover {
 /* === TOAST === */
 #toast {
   position: fixed;
-  bottom: 30px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--darkgrey);
+  background: var(--tangerine);
   color: white;
   padding: 0.8em 1.2em;
   border-radius: 6px;
@@ -634,6 +636,9 @@ button[type="submit"]:hover {
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 9999;
+  box-shadow: 4px 3px 0px 1px rgba(28,19,3,0.75);
+  -webkit-box-shadow: 4px 3px 0px 1px rgba(28,19,3,0.75);
+  -moz-box-shadow: 4px 3px 0px 1px rgba(28,19,3,0.75);
 }
 
 #toast.show {
@@ -759,7 +764,7 @@ button[type="submit"]:hover {
 
 
 
-.intro-content h1.welcome {
+#welcome {
   font-size: 1.5em;
   margin: 0.25em 0;
   font-family: "Barriecito", system-ui;
@@ -767,7 +772,7 @@ button[type="submit"]:hover {
 
 .intro-content p {
   font-size: 0.9em;
-  line-height: 1.3;
+  line-height: 1;
 }
 
 /* rating section */

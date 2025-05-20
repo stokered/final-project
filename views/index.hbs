@@ -12,17 +12,15 @@
     <div id="intro-popup">
       <div class="intro-content">
         {{> logo }}
-        <h1>Welcome to The Bad Reel 🎬</h1>
-        <p>Click anywhere to enter the archive of the worst movies ever watched.</p>
+        <h1 id="welcome">Welcome to The Bad Reel!</h1>
+        <p>Here, we celebrate the worst of cinema. Click anywhere to enter.</p>
       </div>
     </div>
 
     <div class="sticky-header">
       <!--mobile header-->
       <div class="mobile-header">
-        <div class="logo">
-          <img src="/images/logo.png" alt="Logo" />
-        </div>
+        {{> logo }}
         <button class="hamburger" id="hamburger">&#9776;</button>
       </div>
 
@@ -125,13 +123,14 @@
             <h2 id="popup-title">Movie Title</h2>
             <p id="popup-year">(Year)</p>
             <p id="popup-genre">Genre</p>
-            <div id="popup-rating" class="rating-thumbs"></div>
+            {{!-- <div id="popup-rating" class="rating-thumbs"></div> --}}
             <div class="submit-divider"></div>
             <p id="popup-review">Review text here</p>
             <p id="popup-name">Anonymous</p>
           </div>
           <div class="popup-right">
             <img id="popup-poster" src="/images/noposter.png" alt="Poster" />
+            <div id="popup-rating" class="rating-thumbs"></div>
           </div>
         </div>
         <div class="comments-area">
@@ -201,7 +200,7 @@
     </div>
 
     <!-- === TOAST === -->
-    <div id="toast" class="hidden">🍿</div>
+    <div id="toast">🍿</div>
     <script src="/javascripts/scripts.js"></script>
   </body>
 </html>
