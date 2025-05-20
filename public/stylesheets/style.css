@@ -256,15 +256,6 @@ input, select, textarea {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
-.search-group {
-  margin-bottom: 1em;
-  justify-content: center;
-  background-color: var(--darkgrey);
-  color: var(--tangerine);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
 
 /* ---------- SEARCHBAR FOR MOVIE SUBMIT FORM -------*/
 
@@ -331,13 +322,6 @@ input, select, textarea {
   to { transform: translateY(0); opacity: 1; }
 }
 
-.search-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1em;
-  flex-wrap: wrap;
-}
 
 /* ----------- AUTOCOMPLETE ---------*/
 
@@ -345,12 +329,22 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   gap: 1em;
+  background-color: var(--darkgrey);
+  color: var(--tangerine);
 }
+
 
 .input-wrapper {
   position: relative;
   width: 100%;
 }
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
 
 
 #movie-suggestions {
@@ -605,11 +599,19 @@ button[type="submit"]:hover {
   background: var(--vanilla);
   color: var(--tangerine);
   padding: 0.75em;
-  border-left: 4px solid var(--tangerine);
+  border-left: 5px solid var(--tangerine);
   border-radius: 4px;
   margin-bottom: 1em;
   box-shadow: 2px 2px 8px rgba(94, 38, 1, 0.788);
 }
+
+.comment p:first-of-type strong {
+  color: var(--scarlet);
+  font-weight: bold;
+  font-size: 1.1em;
+  font-family: "Barriecito", system-ui;
+}
+
 
 
 /* === REVIEW POPUP STRUCTURE === */
@@ -709,6 +711,12 @@ button[type="submit"]:hover {
   color: var(--vanilla);
 }
 
+#close-submit-popup:hover {
+  cursor: pointer;
+  transform: translate3d(0, 1px, 0);
+  color: var(--vanilla);
+}
+
 #popup-rating .thumb-display {
   width: 30px;
   height: 30px;
@@ -763,6 +771,7 @@ button[type="submit"]:hover {
 
 #intro-popup .intro-content {
   background-color: rgba(20, 20, 20, 0.95);
+  background-image: url("https://www.transparenttextures.com/patterns/rocky-wall.png");
   position: relative;
   color: var(--vanilla);
   border: 3px solid var(--tangerine);
@@ -781,12 +790,16 @@ button[type="submit"]:hover {
   font-family: "Syne Mono", monospace;
 }
 
-
+#type-movie-search {
+  font-family: "Barriecito", system-ui;
+  text-shadow: 2px 2px 0px var(--tangerine);
+}
 
 #welcome {
-  font-size: 1.5em;
+  font-size: 1.8em;
   margin: 0.25em 0;
   font-family: "Barriecito", system-ui;
+  text-shadow: 2px 2px 0px var(--tangerine);
 }
 
 .intro-content p {

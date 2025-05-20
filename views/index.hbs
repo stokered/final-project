@@ -63,7 +63,7 @@
           {{> logo }}
         </div>
         <div class="sidebar-section search">
-          <input type="text" id="search-desktop" placeholder="Search..." />
+          <input type="text" id="search-desktop" placeholder="Search posts..." />
         </div>
 
         <div class="sidebar-section filters">
@@ -148,58 +148,70 @@
     </div>
 
     <!-- === SUBMIT FORM POPUP === -->
-    <div id="submit-popup" class="hidden">
-      <div class="popup-content">
-        <button id="close-submit-popup">X</button>
-        <form id="submit-form">
-          <div class="search-group">
-            <label for="movie-search">Search Movie:</label>
+<div id="submit-popup" class="hidden">
+  <div class="popup-content">
+    <button id="close-submit-popup">X</button>
+    <form id="submit-form">
+      <div class="form-content">
+        <div class="search-group">
+          <div class="search-inline">
+            <label for="movie-search" id="type-movie-search">Search Movie:</label>
             <div class="input-wrapper">
               <input type="text" id="movie-search" placeholder="Start typing..." autocomplete="off" />
               <ul id="movie-suggestions" class="hidden"></ul>
             </div>
-            <button type="button" id="toggle-manual">Add Manually</button>
           </div>
-          <div class="poster-and-details">
-            <img id="poster-preview" src="/images/noposter.png" alt="Poster preview" class="poster-preview" />
-            <div id="manual-fields" class="manual-fields collapse">
-              <label>Movie Title:
-                <input type="text" name="title" id="movie-title" />
-              </label>
-              <label>Genre:
-                <input type="text" name="genre" id="movie-genre" />
-              </label>
-              <label>Year:
-                <input type="text" name="year" id="movie-year" />
-              </label>
-            </div>
-          </div>
-          <div class="name-anon">
-            <div id="submit-name">
-              <label>Your Name:
-                <input type="text" name="name" />
-              </label>
-            </div>
-            <label><input type="checkbox" id="submit-checkbox" name="isAnonymous" /> Post anonymously</label>
-          </div>
-          <div class="thumb-rating" id="thumb-rating">
-            <input type="hidden" name="rating" id="rating-value" value="0" />
-            <img src="/images/thumbsdown.png" data-value="1" class="thumb" />
-            <img src="/images/thumbsdown.png" data-value="2" class="thumb" />
-            <img src="/images/thumbsdown.png" data-value="3" class="thumb" />
-            <img src="/images/thumbsdown.png" data-value="4" class="thumb" />
-            <img src="/images/thumbsdown.png" data-value="5" class="thumb" />
-          </div>
-          <div class="review-section">
-            <label>Review:
-              <textarea name="review" required></textarea>
+          <button type="button" id="toggle-manual">Add Manually</button>
+        </div>
+
+        <div class="poster-and-details">
+          <img id="poster-preview" src="/images/noposter.png" alt="Poster preview" class="poster-preview" />
+          <div id="manual-fields" class="manual-fields collapse">
+            <label>Movie Title:
+              <input type="text" name="title" id="movie-title" />
+            </label>
+            <label>Genre:
+              <input type="text" name="genre" id="movie-genre" />
+            </label>
+            <label>Year:
+              <input type="text" name="year" id="movie-year" />
             </label>
           </div>
-          <input type="hidden" name="posterUrl" id="poster-url" value="/images/noposter.png" />
-          <button type="submit">Post Review</button>
-        </form>
+        </div>
+
+        <div class="name-anon">
+          <div id="submit-name">
+            <label>Your Name:
+              <input type="text" name="name" />
+            </label>
+          </div>
+          <label>
+            <input type="checkbox" id="submit-checkbox" name="isAnonymous" /> Post anonymously
+          </label>
+        </div>
+
+        <div class="thumb-rating" id="thumb-rating">
+          <input type="hidden" name="rating" id="rating-value" value="0" />
+          <img src="/images/thumbsdown.png" data-value="1" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="2" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="3" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="4" class="thumb" />
+          <img src="/images/thumbsdown.png" data-value="5" class="thumb" />
+        </div>
+
+        <div class="review-section">
+          <label>Review:
+            <textarea name="review" required></textarea>
+          </label>
+        </div>
+
+        <input type="hidden" name="posterUrl" id="poster-url" value="/images/noposter.png" />
+        <button type="submit">Post Review</button>
       </div>
-    </div>
+    </form>
+  </div>
+</div>
+
 
     <!-- === TOAST === -->
     <div id="toast">🍿</div>
